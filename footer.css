@@ -1,0 +1,133 @@
+.footer {
+    background-color: #f8f8f8;
+    padding: 20px;
+}
+
+.footer-main {
+    margin: 0%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font: 1em sans-serif;
+    text-align: left;
+}
+
+.footer-social {
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+
+    gap: 16px;
+    justify-content: left;
+}
+
+.footer-social ul {
+    list-style: none;
+    display: flex;
+    gap: 16px;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-social .icon {
+    width: 32px;
+    height: 32px;
+}
+
+.footer-social a {
+    color: #333;
+    text-decoration: none;
+    font-size: 1.5em;
+}
+
+.footer-links {
+    flex: 0 0 80%;
+    gap: 40px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    justify-content: space-between;
+    align-items: center;
+    font: 1em sans-serif;
+    text-align: left;
+}
+
+.footer-links ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links ul li {
+    margin: 8px;
+}
+
+.footer-links ul li a {
+    text-decoration: none;
+    color: #333;
+    font-size: 1em;
+    margin: 8px;
+}
+
+.footer-bottom {
+    margin: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font: 0.9em sans-serif;
+    color: #666;
+}
+
+.footer-payment-methods {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.footer-payment-methods ul {
+    list-style: none;
+    display: flex;
+    gap: 16px;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-payment-methods ul li {
+    margin: 8px;
+}
+
+.footer-payment-methods .footer-icon {
+    width: 48px;
+    height: 32px;
+}
+
+@media (max-width: 768px) {
+
+    .footer-main,
+    .footer-bottom {
+        flex-direction: column;
+        text-align: flex-start;
+        gap: 12px;
+        padding: 10px;
+    }
+
+    .footer-about {
+        margin-bottom: 20px;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+    .footer-links {
+        gap: 40px;
+        grid-template-columns: repeat(2, 1fr);
+        align-items: center;
+        font: 1em sans-serif;
+        text-align: left;
+        flex-wrap: wrap;
+        flex: 1 1 160px;
+    }
+
+    .footer-payment-methods {
+        justify-content: center;
+    }
+
+}

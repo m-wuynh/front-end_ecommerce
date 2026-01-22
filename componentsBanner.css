@@ -1,0 +1,82 @@
+.banner-pin {
+    background-color: #000000;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    margin: auto auto;
+    max-width: auto;
+    border-radius: 50px;
+    display: flex;
+    justify-content: space-between;
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%) translateY(var(--lift, 0px));
+    bottom: 0px;
+    overflow: hidden;
+    z-index: 999;
+}
+
+.banner-pin h1 {
+    margin: 0;
+    font: sans-serif;
+}
+
+.banner-pin input {
+    display: flex;
+    align-items: center;
+    background-color: #F0F0F0;
+    border: none;
+    padding: 5px;
+}
+
+.banner-pin button {
+    display: flex;
+    align-items: center;
+    background-color: #F0F0F0;
+    border-radius: 50px;
+    padding: 5px;
+    width: auto;
+}
+
+.email-subscribe {
+    display: flex;
+    align-items: center;
+    background-color: #F0F0F0;
+    border-radius: 50px;
+    padding: 5px;
+}
+
+.banner-subscribe {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+
+    /* mẹo: giúp 2 ô luôn bằng nhau */
+    width: 430px;
+}
+
+.banner-subscribe button {
+    width: 100%;
+    height: auto;
+    justify-content: center;
+}
+
+.email-subscribe .icon {
+    color: #909090;
+    width: 24px;
+    height: 24px;
+}
+
+@media (max-width: 768px) {
+
+    .banner-pin {
+        flex-direction: column;
+        text-align: center;
+        gap: 12px;
+        padding: 16px;
+        justify-self: center;
+    }
+    .banner-subscribe {
+        justify-self: center;
+    }
+}
