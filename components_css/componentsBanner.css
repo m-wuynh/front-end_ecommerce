@@ -8,11 +8,23 @@
     border-radius: 50px;
     display: flex;
     justify-content: space-between;
-    position: fixed;
-    left: 50%;
-    transform: translateX(-50%) translateY(var(--lift, 0px));
+    position: static;
+    /* ✅ bỏ fixed ở base */
+    transform: none;
+    /* ✅ bỏ transform ở base */
     bottom: 0px;
     overflow: hidden;
+    z-index: 999;
+}
+
+
+
+/* chỉ khi JS thêm class này mới fixed */
+.banner-pin.is-fixed {
+    position: fixed;
+    left: 50%;
+    bottom: 0px;
+    transform: translateX(-50%) translateY(var(--lift, 0px));
     z-index: 999;
 }
 
@@ -76,6 +88,7 @@
         padding: 16px;
         justify-self: center;
     }
+
     .banner-subscribe {
         justify-self: center;
     }

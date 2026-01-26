@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     // ========== 3) Hamburger menu (mobile drawer) ==========
     const menuBtn = document.querySelector(".header-main .menu-toggle");
-    const nav = document.querySelector(".header-main nav.navigation");
+    const nav = document.querySelector(".header-main nav.nav-header");
 
     const backdrop = document.createElement("div");
     backdrop.className = "menu-backdrop";
@@ -111,8 +111,8 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
     // ========== 4) Shop dropdown: mobile click (desktop dùng hover CSS) ==========
-    const shopLi = document.querySelector(".header-main nav.navigation .shop-menu");
-    const shopBtn = document.querySelector(".header-main nav.navigation .shop-menu-btn");
+    const shopLi = document.querySelector(".header-main nav.nav-header .shop-menu");
+    const shopBtn = document.querySelector(".header-main nav.nav-header .shop-menu-btn");
 
     const closeShopMobile = () => {
         if (!shopLi || !shopBtn) return;

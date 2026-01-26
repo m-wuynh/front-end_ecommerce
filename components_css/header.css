@@ -147,15 +147,15 @@
     justify-content: center;
 }
 
-.header-main nav.navigation .shop-dropdown {
+.header-main nav.nav-header .shop-dropdown {
     display: none;
 }
 
-.header-main nav.navigation .shop-menu {
+.header-main nav.nav-header .shop-menu {
     position: relative;
 }
 
-.header-main nav.navigation .shop-dropdown {
+.header-main nav.nav-header .shop-dropdown {
     position: absolute;
     top: calc(100% + 10px);
     left: 0;
@@ -172,12 +172,12 @@
     z-index: 2000;
 }
 
-.header-main nav.navigation .shop-menu:hover .shop-dropdown,
-.header-main nav.navigation .shop-menu:focus-within .shop-dropdown {
+.header-main nav.nav-header .shop-menu:hover .shop-dropdown,
+.header-main nav.nav-header .shop-menu:focus-within .shop-dropdown {
     display: block;
 }
 
-.header-main nav.navigation .shop-dropdown a {
+.header-main nav.nav-header .shop-dropdown a {
     display: block;
     padding: 10px 14px;
     text-decoration: none;
@@ -185,7 +185,7 @@
     white-space: nowrap;
 }
 
-.header-main nav.navigation .shop-dropdown a:hover {
+.header-main nav.nav-header .shop-dropdown a:hover {
     background: rgba(0, 0, 0, .05);
 }
 
@@ -230,7 +230,7 @@
     }
 
     /* nav: luôn tồn tại, nhưng đẩy ra ngoài màn hình */
-    .header-main nav.navigation {
+    .header-main nav.nav-header {
         display: block;
         /* override cái display:none */
         position: fixed;
@@ -250,7 +250,7 @@
     }
 
     /* mở menu */
-    body.menu-open .header-main nav.navigation {
+    body.menu-open .header-main nav.nav-header {
         transform: translateX(0);
     }
 
@@ -271,22 +271,22 @@
     }
 
     /* menu list xếp dọc cho dễ bấm */
-    .header-main nav.navigation ul {
+    .header-main nav.nav-header ul {
         display: flex;
         flex-direction: column;
         gap: 16px;
     }
 
-    .header-main nav.navigation a,
-    .header-main nav.navigation button.shop-menu-btn {
+    .header-main nav.nav-header a,
+    .header-main nav.nav-header button.shop-menu-btn {
         font-size: 18px;
     }
 
-    .header-main nav.navigation .shop-menu.is-open .shop-dropdown {
+    .header-main nav.nav-header .shop-menu.is-open .shop-dropdown {
         display: block;
     }
 
-    .header-main nav.navigation .shop-dropdown {
+    .header-main nav.nav-header .shop-dropdown {
         position: static;
         border: none;
         box-shadow: none;
@@ -294,7 +294,7 @@
         min-width: unset;
     }
 
-    .header-main nav.navigation .shop-dropdown a {
+    .header-main nav.nav-header .shop-dropdown a {
         padding: 10px 0;
     }
 }

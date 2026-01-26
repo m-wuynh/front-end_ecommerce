@@ -19,6 +19,7 @@ function createProductCard(product) {
     : 0;
 
   return `
+  <a class="product-link" href="product_detail.html?id=${product.id}">
     <article class="product-card">
       <div class="product-thumb">
         <img src="${product.image}" alt="${product.name}">

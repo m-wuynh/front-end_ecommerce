@@ -205,6 +205,11 @@ body {
     align-items: center;
 }
 
+.product-link {
+    text-decoration: none;
+    color: inherit;
+}
+
 .product-thumb img {
     max-width: 100%;
     max-height: 100%;
