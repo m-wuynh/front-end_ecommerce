@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="components_css/componentsBanner.css">
     <link rel="stylesheet" href="components_css/header.css">
     <link rel="stylesheet" href="components_css/footer.css">
+    <link rel="stylesheet" href="URL_CSS_FONT_SATOSHI">
 </head>
 
 <body>
@@ -55,9 +56,9 @@
                             <li><a href="category.html?category=accessories">Accessories</a></li>
                         </ul>
                     </li>
-                    <li><a href="category.html?category=onsale">On Sale</a></li>
-                    <li><a href="category.html?category=new">New Arrivals</a></li>
-                    <li><a href="category.html?category=brands">Brands</a></li>
+                    <li><a href="category.html?tag=onsale">On Sale</a></li>
+                    <li><a href="category.html?tag=new">New Arrivals</a></li>
+                    <li><a href="category.html?tag=brands">Brands</a></li>
                 </ul>
             </nav>
             <div class="search">
@@ -139,34 +140,34 @@
 
             <div id="grid_new_arrivals" class="product-grid"></div>
             <div>
-                <a class="btn-outline" href="#new">View All</a>
+                <a class="btn-outline" href="category.html?tag=new">View All</a>
             </div>
         </section>
         <section class="best-sellers">
             <h1>TOP SELLING</h1>
             <div id="grid_best_sellers" class="product-grid"></div>
-            <a class="btn-outline" href="#products">View All</a>
+            <a class="btn-outline" href="category.html?tag=best-seller">View All</a>
         </section>
 
         <section class="style">
             <h1>BROWSE BY DRESS STYLE</h1>
             <div class="style-grid">
-                <a href="category.html?id=casual">
+                <a href="category.html?tag=casual">
                     <div class="style_item">
                         <img src="img/style_casual.png" alt="Casual">
                     </div>
                 </a>
-                <a href="category.html?id=formal">
+                <a href="category.html?tag=formal">
                     <div class="style_item">
                         <img src="img/style_formal.png" alt="Formal">
                     </div>
                 </a>
-                <a href="category.html?id=party">
+                <a href="category.html?tag=party">
                     <div class="style_item">
                         <img src="img/style_party.png" alt="Party">
                     </div>
                 </a>
-                <a href="category.html?id=gym">
+                <a href="category.html?tag=gym">
                     <div class="style_item">
                         <img src="img/style_gym.png" alt="Gym">
                     </div>
@@ -370,10 +371,10 @@
     </footer>
     <script src="components_js/header.js"></script>
     <script src="components_js/allproduct.js"></script>
-    <script src="homejs/render.js"></script>
-    <script src="homejs/products.js"></script>
-    <script src="homejs/home.js"></script>
+    <script src="components_js/render.js"></script>
+    <script src="components_js/products.js"></script>
     <script src="components_js/componenrsBanner.js"></script>
+    <script src="js/home.js"></script>
 </body>
 
 </html>
