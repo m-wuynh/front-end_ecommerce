@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="components_css/header.css">
     <link rel="stylesheet" href="components_css/footer.css">
     <link rel="stylesheet" href="components_css/componentsBanner.css">
+    <link rel="stylesheet" href="URL_CSS_FONT_SATOSHI">
 </head>
 
 <body>
@@ -36,7 +37,7 @@
                 </button>
             </div>
             <div> <a href="index.html" class="logo">Shop.co</a></div>
-            <nav class="nav-header" aria-label="Primary Navigation">
+            <nav class="nav-header" aria-label="Header Navigation">
                 <ul>
                     <li class="shop-menu">
                         <button type="button" class="shop-menu-btn" aria-controls="shop-menu" aria-expanded="false">Shop
@@ -55,9 +56,9 @@
                             <li><a href="category.html?category=accessories">Accessories</a></li>
                         </ul>
                     </li>
-                    <li><a href="category.html?category=onsale">On Sale</a></li>
-                    <li><a href="category.html?category=new">New Arrivals</a></li>
-                    <li><a href="category.html?category=brands">Brands</a></li>
+                    <li><a href="category.html?tag=onsale">On Sale</a></li>
+                    <li><a href="category.html?tag=new">New Arrivals</a></li>
+                    <li><a href="category.html?tag=brands">Brands</a></li>
                 </ul>
             </nav>
             <div class="search">
@@ -90,16 +91,219 @@
         </div>
     </header>
 
-    <main>
-        <nav>
+    <div class="filter-backdrop" data-filter-backdrop aria-hidden="true"></div>
 
+    <main class="page">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="icon">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                    </svg></li>
+                <li class="breadcrumb-current" style="text-transform: uppercase;">Category</li>
+            </ul>
         </nav>
-        <section>
-            <aside>
+        <section class="category-content">
+            <aside class="filter" id="mobileFilter" data-filter-panel>
+                <section class="filter-header">
+                    <h2>Filter</h2> <button class="filter-close" type="button" aria-label="Close filter"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke-width="1.5" stroke="currentColor" class="icon">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M6 13.5V3.75m0 9.75a1.5 1.5 0 0 1 0 3m0-3a1.5 1.5 0 0 0 0 3m0 3.75V16.5m12-3V3.75m0 9.75a1.5 1.5 0 0 1 0 3m0-3a1.5 1.5 0 0 0 0 3m0 3.75V16.5m-6-9V3.75m0 3.75a1.5 1.5 0 0 1 0 3m0-3a1.5 1.5 0 0 0 0 3m0 9.75V10.5" />
+                        </svg>
+                    </button>
+                </section>
+                <div class="device"></div>
+                <section class="filter-product">
+                    <ul>
+                        <li><a href="">T-shirts <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="icon">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                                </svg>
+                            </a></li>
+                        <li><a href="">Shorts <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="icon">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                                </svg>
+                            </a></li>
+                        <li><a href="">Shirts <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="icon">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                                </svg>
+                            </a></li>
+                        <li><a href="">Hoodie <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="icon">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                                </svg>
+                            </a></li>
+                        <li><a href="">Jeans <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="icon">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                                </svg>
+                            </a></li>
+                    </ul>
+                </section>
+                <div class="device"></div>
+                <section class="filter-price">
+                    <div class="price-title">Price
+                        <button class="btn"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke-width="1.5" stroke="currentColor" class="icon">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="slider" id="slider"></div>
+                </section>
+                <div class="device"></div>
+                <section class="filter-color">
+                    <div class="color-title">Color
+                        <button class="btn"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke-width="1.5" stroke="currentColor" class="icon">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div>
+                        <input id="color-green" class="color-input" type="checkbox" data-color="green">
+                        <label class="color-dot" for="color-green" aria-label="green" style="--c: green"></label>
+                        <input id="color-red" class="color-input" type="checkbox" data-color="red">
+                        <label class="color-dot" for="color-red" aria-label="red" style="--c: red"></label>
+                        <input id="color-yellow" class="color-input" type="checkbox" data-color="yellow">
+                        <label class="color-dot" for="color-yellow" aria-label="yellow" style="--c: yellow"></label>
+                        <input id="color-orange" class="color-input" type="checkbox" data-color="orange">
+                        <label class="color-dot" for="color-orange" aria-label="orange" style="--c: orange"></label>
+                        <input id="color-cyan" class="color-input" type="checkbox" data-color="cyan">
+                        <label class="color-dot" for="color-cyan" aria-label="cyan" style="--c: cyan"></label>
+                        <input id="color-blue" class="color-input" type="checkbox" data-color="blue">
+                        <label class="color-dot" for="color-blue" aria-label="blue" style="--c: blue"></label>
+                        <input id="color-purple" class="color-input" type="checkbox" data-color="purple">
+                        <label class="color-dot" for="color-purple" aria-label="purple" style="--c: purple"></label>
+                        <input id="color-pink" class="color-input" type="checkbox" data-color="pink">
+                        <label class="color-dot" for="color-pink" aria-label="pink" style="--c: pink"></label>
+                        <input id="color-white" class="color-input" type="checkbox" data-color="white">
+                        <label class="color-dot" for="color-white" aria-label="white" style="--c: white"></label>
+                        <input id="color-black" class="color-input" type="checkbox" data-color="black">
+                        <label class="color-dot" for="color-black" aria-label="black" style="--c: black"></label>
+                    </div>
+                </section>
+                <div class="device"></div>
+                <section class="filter-size">
+                    <div class="size-title">Size
+                        <button class="btn"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke-width="1.5" stroke="currentColor" class="icon">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div>
+                        <input id="xx-small" class="size-input" type="checkbox"><label for="xx-small">XX-Small</label>
+                        <input id="x-small" class="size-input" type="checkbox"><label for="x-small">X-Small</label>
+                        <input id="small" class="size-input" type="checkbox"><label for="small">Small</label>
+                        <input id="medium" class="size-input" type="checkbox"><label for="medium">Medium</label>
+                        <input id="large" class="size-input" type="checkbox"><label for="large">Large</label>
+                        <input id="x-large" class="size-input" type="checkbox"><label for="x-large">X-Large</label>
+                        <input id="xx-large" class="size-input" type="checkbox"><label for="xx-large">XX-Large</label>
+                        <input id="3x-large" class="size-input" type="checkbox"><label for="3x-large">3X-Large</label>
+                        <input id="4x-large" class="size-input" type="checkbox"><label for="4x-large">4X-Large</label>
 
+                    </div>
+                </section>
+                <div class="device"></div>
+                <section class="style">
+                    <div class="style-title">Dress Style
+                        <button class="btn"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke-width="1.5" stroke="currentColor" class="icon">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div>
+                        <ul>
+                            <li>Casual <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="icon">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                                </svg></li>
+                            <li>Formal <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="icon">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                                </svg></li>
+                            <li>Party <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="icon">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                                </svg></li>
+                            <li>Gym <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="icon">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                                </svg></li>
+                        </ul>
+                    </div>
+                </section>
+                <section class="apply-filter">
+                    <button type="button">Apply Filter</button>
+                </section>
             </aside>
-            <section>
+            <section class="plp">
+                <div class="plp-top">
+                    <div>
+                        <h1 class="breadcrumb-current" style="text-transform: uppercase;">Category</h1>
+                    </div>
+                    <div class="plp-actions">
+                        <label class="sort sort-wrap">Sort by:
+                            <select name="sort" aria-label="Sort products">
+                                <option value="popular">Most Popular</option>
+                                <option value="price-low">Low to High</option>
+                                <option value="price-high">High to Low</option>
+                            </select>
+                        </label>
 
+                        <button class="filter-toggle" type="button" aria-label="Open filter" aria-expanded="false">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 3c2.755 0 5 2.245 5 5 0 1.747-.91 3.281-2.277 4.157a.75.75 0 0 0-.348.63V21l-4.75-2.375V12.787a.75.75 0 0 0-.348-.63A4.986 4.986 0 0 1 7 8c0-2.755 2.245-5 5-5Z" />
+                            </svg>
+                            <span class="filter-toggle-text">Filter</span>
+                        </button>
+                    </div>
+                </div>
+                <section class="plp-grid">
+                    <div id="grid_category" class="product-grid"></div>
+                </section>
+                <nav class="plp-pagination" aria-label="Pagination">
+                    <!-- pagination buttons -->
+                    <button class="prev-page" aria-label="Previous page">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="icon">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+                        </svg>
+                    </button>
+                    <ul>
+                        <li><button>1</button></li>
+                        <li><button>2</button></li>
+                        <li><button>3</button></li>
+                        <li><button>4</button></li>
+                        <li><button>5</button></li>
+                        <li><button>6</button></li>
+                        <li><button>7</button></li>
+                    </ul>
+                    <button class="next-page" aria-label="Next page">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="icon">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                        </svg>
+
+                    </button>
+                </nav>
             </section>
         </section>
     </main>
@@ -173,7 +377,8 @@
                 <div>
                     <h3>HELP</h3>
                     <ul>
-                        <li><a href="#customer-support">Customer Support</a></li>
+                        <li><a href="#customer-support">Customer Support< /a>
+                        </li>
                         <li><a href="#delivery-details">Delivery Details</a></li>
                         <li><a href="#terms">Terms & Conditions</a></li>
                         <li><a href="#privacy">Privacy Policy</a></li>
@@ -237,7 +442,12 @@
     </footer>
     <script src="components_js/header.js"></script>
     <script src="components_js/allproduct.js"></script>
+    <script src="components_js/render.js"></script>
+    <script src="components_js/products.js"></script>
     <script src="components_js/componenrsBanner.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nouislider@15.7.1/dist/nouislider.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/nouislider@15.7.1/dist/nouislider.min.js"></script>
+    <script src="js/category.js"></script>
 </body>
 
 </html>
