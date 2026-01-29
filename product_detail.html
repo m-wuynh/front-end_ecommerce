@@ -4,15 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shop.co - Category</title>
-    <link rel="stylesheet" href="css/category.css">
+    <title>Shop.co - Product Detail</title>
+    <link rel="stylesheet" href="css/product-detail.css">
     <link rel="stylesheet" href="components_css/header.css">
     <link rel="stylesheet" href="components_css/footer.css">
     <link rel="stylesheet" href="components_css/componentsBanner.css">
+    <link rel="stylesheet" href="URL_CSS_FONT_SATOSHI">
 </head>
 
 <body>
-        <header class="header">
+    <header class="header">
         <div class="announcement-bar">
             <p>Sign up and get 20% off your first order.
                 <a href="#signup" class="cta-button">Sign Up Now </a>
@@ -36,7 +37,7 @@
                 </button>
             </div>
             <div> <a href="index.html" class="logo">Shop.co</a></div>
-            <nav class="nav-header" aria-label="Primary Navigation">
+            <nav class="nav-header" aria-label="Header Navigation">
                 <ul>
                     <li class="shop-menu">
                         <button type="button" class="shop-menu-btn" aria-controls="shop-menu" aria-expanded="false">Shop
@@ -55,9 +56,9 @@
                             <li><a href="category.html?category=accessories">Accessories</a></li>
                         </ul>
                     </li>
-                    <li><a href="category.html?category=onsale">On Sale</a></li>
-                    <li><a href="category.html?category=new">New Arrivals</a></li>
-                    <li><a href="category.html?category=brands">Brands</a></li>
+                    <li><a href="category.html?tag=onsale">On Sale</a></li>
+                    <li><a href="category.html?tag=new">New Arrivals</a></li>
+                    <li><a href="category.html?tag=brands">Brands</a></li>
                 </ul>
             </nav>
             <div class="search">
@@ -90,17 +91,52 @@
         </div>
     </header>
 
-    <main>
-        <nav>
-
+    <main class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="index.html">Home</a> <span>›</span>
+            <a href="category.html">Shop</a> <span>›</span>
+            <span id="bcCategory">Category</span>
         </nav>
-        <section>
-            <aside>
 
-            </aside>
-            <section>
-                
-            </section>
+        <!-- JS sẽ render toàn bộ chi tiết vào đây -->
+        <section id="pdRoot"></section>
+
+        <section class="product-tabs">
+            <div class="tabs">
+                <button class="tab-link active" data-tab="Detail">Product Detail</button>
+                <button class="tab-link" data-tab="Review">Rating & Reviews</button>
+                <button class="tab-link" data-tab="FAQ">FAQs</button>
+            </div>
+
+            <div class="tab-content">
+                <div id="description" class="tab-pane active" data-tab="Detail">
+                    <h3>Product Description</h3>
+                    <p id="pdDescription">
+                        <!-- JS sẽ render mô tả sản phẩm vào đây -->
+                    </p>
+                </div>
+                <div id="reviews" class="tab-pane" data-tab="Review">
+                    
+                    <div>
+                        <p id="pdRating">
+                            <!-- JS sẽ render đánh giá sản phẩm vào đây -->
+                        </p>
+                        <button>Load More Reviews</button>
+                    </div>
+                </div>
+                <div id="faq" class="tab-pane" data-tab="FAQ">
+                    <h3>Frequently Asked Questions</h3>
+                    <p>No FAQs available for this product.</p>
+                </div>
+        </section>
+
+        <div class="hr"></div>
+
+        <section class="related-product">
+            <h2>YOU MIGHT ALSO LIKE</h2>
+            <div class="product-list" id="relatedProducts">
+                <!-- JS sẽ render các sản phẩm liên quan vào đây -->
+            </div>
         </section>
     </main>
 
@@ -237,7 +273,12 @@
     </footer>
     <script src="components_js/header.js"></script>
     <script src="components_js/allproduct.js"></script>
+    <script src="components_js/reviews.js"></script>
+    <script src="components_js/render.js"></script>
     <script src="components_js/componenrsBanner.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nouislider@15.7.1/dist/nouislider.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/nouislider@15.7.1/dist/nouislider.min.js"></script>
+    <script src="js/product-detail.js"></script>
 </body>
 
 </html>
