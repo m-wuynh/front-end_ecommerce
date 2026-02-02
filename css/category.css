@@ -433,40 +433,90 @@ body {
 }
 
 
-@media (max-width: 768px) {
 
-    /* layout: 1 cột */
+/* =========================
+   CATEGORY (PLP) RESPONSIVE
+   Breakpoints: 1400 / 1200 / 900 / 600 / 400
+   DÁN Ở CUỐI category.css
+========================= */
+
+/* Base tuning (desktop) – tránh filter width cứng làm vỡ grid */
+.category-content {
+    grid-template-columns: minmax(280px, 360px) 1fr;
+    /* filter | plp */
+    padding-right: 0;
+    /* bạn đang padding-right: 50px -> dễ bị vỡ ở màn vừa */
+}
+
+.filter {
+    width: auto;
+    /* bỏ cứng 400px để còn co giãn */
+    max-width: 360px;
+    margin: 0;
+}
+
+.plp-grid {
+    padding: 0;
+    /* bạn đang padding 0 20px -> dễ lệch ở màn nhỏ */
+}
+
+/* ================== <= 1400px ================== */
+@media (max-width: 1400px) {
+    .page {
+        padding: 18px;
+    }
+
     .category-content {
-        grid-template-columns: 1fr;
-        padding-right: 0;
-        gap: 14px;
-    }
-
-    /* ẩn Sort by trên mobile, thay bằng nút Filter */
-    .sort-wrap {
-        display: none;
-    }
-
-    .filter-toggle {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        padding: 10px 14px;
-        border: 1px solid #e6e6e6;
-        border-radius: 999px;
-        background: #fff;
-        cursor: pointer;
-        font-weight: 600;
-    }
-
-    .filter-toggle .icon {
-        width: 18px;
-        height: 18px;
+        gap: 18px;
     }
 
     .product-grid {
+        gap: 24px;
+    }
+}
+
+/* ================== <= 1200px ================== */
+@media (max-width: 1200px) {
+    .page {
+        padding: 16px;
+    }
+
+    .category-content {
+        grid-template-columns: minmax(260px, 320px) 1fr;
+        gap: 16px;
+    }
+
+    .product-grid {
+        gap: 20px;
+    }
+
+    .product-thumb {
+        height: 210px;
+        padding: 22px;
+    }
+}
+
+/* ================== <= 900px ================== */
+@media (max-width: 900px) {
+    .category-content {
+        grid-template-columns: minmax(240px, 900px) 1fr;
+        gap: 14px;
+    }
+
+    .filter {
+        max-width: 300px;
+        border-radius: 22px;
+        padding: 10px 16px;
+    }
+
+    /* Nếu bị chật, cho grid về 2 cột sớm ở 900 */
+    .product-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 18px;
+    }
+
+    .plp-top {
+        gap: 12px;
     }
 
     /* ===== Filter drawer (bottom sheet) ===== */
@@ -520,5 +570,84 @@ body {
 
     .plp-grid {
         padding: 0;
+    }
+}
+
+/* ================== <= 600px ================== */
+@media (max-width: 600px) {
+
+    /* 1 cột: filter drawer + grid 2 cột (gọn) */
+    .page {
+        padding: 12px;
+    }
+
+    .breadcrumb {
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 12px;
+    }
+
+    .plp-top {
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .filter-toggle-text {
+        display: none;
+        /* chỉ để icon cũng được, nếu bạn muốn giữ text thì xoá dòng này */
+    }
+
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+    }
+
+    .product-thumb {
+        height: 190px;
+        padding: 18px;
+        border-radius: 16px;
+    }
+
+    /* Backdrop: bạn đang để background #fff -> nhìn như “phủ trắng”
+     Đổi sang tối nhẹ để giống modal */
+    .filter-backdrop {
+        background: rgba(0, 0, 0, .45);
+    }
+}
+
+/* ================== <= 400px ================== */
+@media (max-width: 400px) {
+    .page {
+        padding: 10px;
+    }
+
+    .product-grid {
+        grid-template-columns: 1fr;
+        /* 1 cột cho đỡ chật */
+        gap: 14px;
+    }
+
+    .product-thumb {
+        height: 200px;
+        padding: 18px;
+    }
+
+    .product-name {
+        font-size: 15px;
+    }
+
+    .price-current {
+        font-size: 18px;
+    }
+
+    .stars {
+        font-size: 20px;
+    }
+
+    /* pagination đỡ tràn */
+    .plp-pagination ul {
+        gap: 6px;
+        flex-wrap: wrap;
+        justify-content: center;
     }
 }

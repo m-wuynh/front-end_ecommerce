@@ -1,32 +1,32 @@
 html,
 body {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 .main-content {
-    gap: 20px;
-    padding: 3%;
+  gap: 20px;
+  padding: 3%;
 }
 
 .breadcrumb {
-    font-size: 14px;
-    margin-bottom: 20px;
-    display: flex;
+  font-size: 14px;
+  margin-bottom: 20px;
+  display: flex;
 }
 
 .breadcrumb ul {
-    list-style: none;
-    display: flex;
-    gap: 5px;
-    padding: 0;
-    margin: 0;
+  list-style: none;
+  display: flex;
+  gap: 5px;
+  padding: 0;
+  margin: 0;
 }
 
 .breadcrumb ul li a {
-    text-decoration: none;
-    color: #000;
+  text-decoration: none;
+  color: #000;
 }
 
 /* .btn {
@@ -38,136 +38,349 @@ body {
 } */
 
 .icon {
-    width: 14px;
-    height: 14px;
-    vertical-align: middle;
-    border: none;
+  width: 14px;
+  height: 14px;
+  vertical-align: middle;
+  border: none;
 }
 
 .cart-layout {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    margin-top: 20px;
-    padding: 30px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-top: 20px;
+  padding: 30px;
 }
 
 .cart-items {
-    padding: 20px;
-    margin: 20px;
+  padding: 20px;
+  margin: 20px;
 }
 
 .cart-item {
-    border: 1px solid #ccc;
-    padding: 20px;
-    margin: 20px;
-    border-radius: 25px;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin: 20px;
+  border-radius: 25px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
 
 }
 
 .order-summary {
-    border: 1px solid #ccc;
-    padding: 20px;
-    margin: 20px;
-    border-radius: 25px;
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin: 20px;
+  border-radius: 25px;
 }
 
 .summary-details {
-    padding: 20px;
-    font-size: 20px;
-    font-weight: bold;
-    border-bottom: 1px solid #ccc;
+  padding: 20px;
+  font-size: 20px;
+  font-weight: bold;
+  border-bottom: 1px solid #ccc;
 }
 
 .summary-item {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 20px;
-    font-size: 20px;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px;
+  font-size: 20px;
 
 }
 
 .qty {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: #f1f1f1;
-    border-radius: 999px;
-    padding: 10px 14px
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f1f1f1;
+  border-radius: 999px;
+  padding: 10px 14px
 }
 
 .qty button {
-    border: 0;
-    background: transparent;
-    font-size: 22px;
-    cursor: pointer
+  border: 0;
+  background: transparent;
+  font-size: 22px;
+  cursor: pointer
 }
 
 
-.cart-button .pd-actions{
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
+.cart-button .pd-actions {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }
-.cart-button .pd-actions .remove-button{
-    background: none;
-    border: none;
-    color: #ff0000;
-    width: 32px;
-    height: 32px;
-    align-self: flex-end;
+
+.cart-button .pd-actions .remove-button {
+  background: none;
+  border: none;
+  color: #ff0000;
+  width: 32px;
+  height: 32px;
+  align-self: flex-end;
 }
-.cart-button .pd-actions .remove-button .icon{
-    width: 20px;
-    height: 20px;
+
+.cart-button .pd-actions .remove-button .icon {
+  width: 20px;
+  height: 20px;
 }
 
 .summary-total-section {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 20px 0;
-    font-size: 20px;
-    font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px 0;
+  font-size: 20px;
+  font-weight: bold;
 }
 
-.summary-total-section button{
-    margin: 0px 20px;
+.summary-total-section button {
+  margin: 0px 20px;
 }
 
 .button {
-    border: 0;
-    background: #111;
-    color: #fff;
-    padding: 14px 18px;
-    border-radius: 999px;
-    cursor: pointer;
-    font-size: 16px
+  border: 0;
+  background: #111;
+  color: #fff;
+  padding: 14px 18px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 16px
 }
+
 .input-code {
-    display: flex;
-    align-items: center;
-    background-color: #F0F0F0;
-    border-radius: 50px;
-    padding: 5px;
-    margin: 0px 20px;
+  display: flex;
+  align-items: center;
+  background-color: #F0F0F0;
+  border-radius: 50px;
+  padding: 5px;
+  margin: 0px 20px;
 }
 
 .input-code .icon {
-    color: #909090;
-    width: 24px;
-    height: 24px;
+  color: #909090;
+  width: 24px;
+  height: 24px;
 }
+
 .promo-code {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    border: none;
-    background: transparent;
-    border-radius: 999px;
-    width: 100%;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  border: none;
+  background: transparent;
+  border-radius: 999px;
+  width: 100%;
+  font-size: 20px;
+  outline: none;
+  margin-bottom: 20px;
+}
+
+/* =========================
+   RESPONSIVE CART PAGE
+   Breakpoints: 1400 / 1200 / 900 / 600 / 400
+   DÁN Ở CUỐI cart.css
+========================= */
+
+/* (Optional nhưng nên có) – giúp layout gọn & dễ responsive hơn */
+.cart-layout {
+  max-width: 1280px;
+  margin: 0 auto;
+  grid-template-columns: 1.6fr 0.9fr;
+  /* items rộng hơn summary */
+  align-items: start;
+}
+
+/* cart-item: desktop đẹp hơn (image | info | actions) */
+.cart-item {
+  grid-template-columns: 120px 1fr auto;
+  gap: 16px;
+  align-items: center;
+}
+
+/* nếu bạn chưa có style ảnh */
+.cart-thumbnail img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 16px;
+  object-fit: cover;
+}
+
+/* ================== <= 1400px ================== */
+@media (max-width: 1400px) {
+  .cart-layout {
+    max-width: 1180px;
+    padding: 24px;
+  }
+
+  .cart-items,
+  .order-summary {
+    margin: 12px;
+  }
+
+  .cart-item {
+    padding: 18px;
+    margin: 16px 12px;
+    border-radius: 22px;
+  }
+}
+
+/* ================== <= 1200px ================== */
+@media (max-width: 1200px) {
+  .main-content {
+    padding: 24px 3%;
+  }
+
+  .cart-layout {
+    max-width: 1040px;
+    grid-template-columns: 1.4fr 0.95fr;
+    padding: 18px;
+    gap: 16px;
+  }
+
+  .cart-items,
+  .order-summary {
+    margin: 0;
+    /* đỡ “phình” khoảng trống */
+  }
+
+  .summary-item {
+    font-size: 18px;
+    padding: 10px 16px;
+  }
+}
+
+/* ================== <= 900px (Tablet) ================== */
+@media (max-width: 900px) {
+  .cart-layout {
+    grid-template-columns: 1fr;
+    /* chuyển về 1 cột */
+    padding: 16px;
+  }
+
+  .order-summary {
+    margin-top: 12px;
+  }
+
+  .cart-item {
+    grid-template-columns: 110px 1fr auto;
+    margin: 14px 0;
+  }
+}
+
+/* ================== <= 600px (Mobile) ================== */
+@media (max-width: 600px) {
+  .page-title {
+    font-size: 28px;
+    /* nếu bạn có style riêng thì có thể bỏ */
+    line-height: 1.1;
+  }
+
+  .cart-layout {
+    padding: 12px;
+    gap: 12px;
+  }
+
+  /* cart-item: chuyển thành 2 cột + actions xuống hàng */
+  .cart-item {
+    grid-template-columns: 96px 1fr;
+    gap: 12px;
+    padding: 14px;
+    border-radius: 18px;
+  }
+
+  .cart-button {
+    grid-column: 1 / -1;
+    /* actions chiếm cả hàng */
+  }
+
+  /* actions: qty bên trái, remove bên phải */
+  .cart-button .pd-actions {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .cart-button .pd-actions .remove-button {
+    align-self: center;
+    /* bỏ align-self: flex-end ở mobile */
+  }
+
+  .qty {
+    padding: 8px 12px;
+  }
+
+  .qty button {
     font-size: 20px;
-    outline: none;
-    margin-bottom: 20px;
+  }
+
+  .summary-details {
+    font-size: 18px;
+    padding: 16px;
+  }
+
+  .summary-item {
+    font-size: 16px;
+    padding: 10px 12px;
+  }
+
+  /* promo: từ 2 cột -> 1 cột */
+  .promo-code {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+
+  .input-code {
+    margin: 0;
+  }
+
+  .summary-total-section button {
+    margin: 0;
+    width: 100%;
+  }
+}
+
+/* ================== <= 400px (Small mobile) ================== */
+@media (max-width: 400px) {
+  .breadcrumb {
+    font-size: 12px;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .cart-layout {
+    padding: 10px;
+  }
+
+  .cart-item {
+    grid-template-columns: 82px 1fr;
+    padding: 12px;
+    gap: 10px;
+  }
+
+  .cart-product-name {
+    font-size: 14px;
+    /* nếu class tồn tại */
+  }
+
+  .cart-product-price {
+    font-size: 14px;
+    /* nếu class tồn tại */
+  }
+
+  .qty {
+    padding: 6px 10px;
+  }
+
+  .qty button {
+    font-size: 18px;
+  }
+
+  .button {
+    font-size: 14px;
+    padding: 12px 14px;
+  }
 }

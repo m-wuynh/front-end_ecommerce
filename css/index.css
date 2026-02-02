@@ -324,6 +324,10 @@ body {
 
 .style-grid a img {
     border-radius: 50px;
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
 }
 
 .customer-rating {
@@ -355,7 +359,7 @@ body {
     gap: 10px;
 }
 
-.ratings-container track{
+.ratings-container track {
     display: none;
 }
 
@@ -364,6 +368,12 @@ body {
     border-radius: 12px;
     padding: 10px;
     flex: 0 0 400px;
+}
+
+.hr{
+    height: 1px;
+    background-color: #e6e6e6;
+    margin: 20px;
 }
 
 @media (max-width: 768px) {
@@ -384,6 +394,7 @@ body {
         flex-direction: column;
 
         align-items: flex-start;
+
         padding: 28px 18px 0;
         gap: 18px;
 
@@ -453,5 +464,108 @@ body {
 
     .style-grid {
         grid-template-columns: 1fr;
+    }
+}
+
+/* =========================
+   RESPONSIVE: <=1200 / <=900 / <=600 / <=400
+   Dán xuống cuối index.css
+========================= */
+
+/* <=1200px: 4 -> 3 cột */
+@media (max-width: 1200px) {
+    .product-grid {
+        grid-template-columns: repeat(2y, 1fr);
+    }
+
+    .banner-top {
+        padding: 40px 40px 0;
+        gap: 28px;
+        height: auto;
+    }
+
+    .banner-image img {
+        height: 100%;
+    }
+}
+
+/* <=900px: banner xếp dọc dễ đọc, grid 2 cột */
+@media (max-width: 900px) {
+    .banner-top {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 28px 18px 0;
+        gap: 18px;
+        height: auto;
+        overflow: visible;
+    }
+
+    .banner-text {
+        max-width: 100%;
+    }
+
+    .banner-image {
+        width: 100%;
+    }
+
+    .banner-image img {
+        width: 100%;
+        height: auto;
+    }
+
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 18px;
+    }
+
+    .new-arrivals,
+    .best-sellers {
+        padding: 40px 18px;
+    }
+}
+
+/* <=600px: grid 2 cột nhưng thumb thấp hơn, style section gọn */
+@media (max-width: 600px) {
+    .banner-text h1 {
+        font-size: clamp(34px, 9vw, 48px);
+    }
+
+    .banner-text>p {
+        font-size: 14px;
+    }
+
+    .product-thumb {
+        height: 200px;
+        padding: 18px;
+    }
+
+    .price-current {
+        font-size: 18px;
+    }
+
+    .style {
+        margin: 18px;
+        padding: 20px;
+    }
+
+    .style h1 {
+        font-size: 30px;
+    }
+}
+
+/* <=400px: grid 1 cột cho dễ nhìn */
+@media (max-width: 400px) {
+    .banner-text button {
+        width: 100%;
+        max-width: none;
+    }
+
+    .product-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .banner-bottom li {
+        font-size: clamp(24px, 8vw, 36px);
     }
 }
