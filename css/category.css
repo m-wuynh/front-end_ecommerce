@@ -421,6 +421,18 @@ body {
     font-weight: 700;
 }
 
+.plp-pagination button.is-active {
+    background: #000;
+    color: #fff;
+    border-radius: 8px;
+}
+
+.plp-pagination button[disabled] {
+    opacity: .4;
+    cursor: not-allowed;
+}
+
+
 @media (max-width: 768px) {
 
     /* layout: 1 cột */
