@@ -29,7 +29,7 @@ function createProductCard(product) {
 
       <div class="product-rating">
         <span class="stars">${createStars(product.rating)}</span>
-        <span class="rating-text">${product.rating}/5</span>
+        <span class="rating-text">${Number(product.rating).toFixed(1)}/5</span>
       </div>
 
       <div class="product-price">
