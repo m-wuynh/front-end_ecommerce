@@ -146,5 +146,148 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    // ========== 5) Search by name + Suggest + Submit to search.html ==========
+    const searchForm = document.querySelector(".header-main .search .search-form");
+    const searchInputEl = document.querySelector("#headerSearchInput");
+    const suggestBox = document.querySelector("#searchSuggest");
+
+    // Yêu cầu: PRODUCTS phải là mảng global (từ allproduct.js)
+    const getProductsSafe = () => {
+        // ưu tiên window.PRODUCTS (đã fix ở allproduct.js)
+        if (Array.isArray(window.PRODUCTS)) return window.PRODUCTS;
+
+        // fallback: nếu script vẫn tạo biến global PRODUCTS (hiếm khi dùng const)
+        try {
+            if (typeof PRODUCTS !== "undefined" && Array.isArray(PRODUCTS)) return PRODUCTS;
+        } catch (_) { }
+
+        return [];
+    };
+
+
+    const normalize = (s) =>
+        (s ?? "")
+            .toString()
+            .trim()
+            .toLowerCase();
+
+    // highlight keyword trong tên (nhẹ nhàng thôi)
+    const highlight = (text, kw) => {
+        const t = text || "";
+        if (!kw) return t;
+        const idx = t.toLowerCase().indexOf(kw.toLowerCase());
+        if (idx < 0) return t;
+        const a = t.slice(0, idx);
+        const b = t.slice(idx, idx + kw.length);
+        const c = t.slice(idx + kw.length);
+        return `${a}<mark>${b}</mark>${c}`;
+    };
+
+    const hideSuggest = () => {
+        if (!suggestBox) return;
+        suggestBox.hidden = true;
+        suggestBox.innerHTML = "";
+    };
+
+    const showSuggest = (items, kw) => {
+        if (!suggestBox) return;
+
+        if (!items.length) {
+            suggestBox.innerHTML = `
+      <div class="suggest-item" style="cursor:default;">
+        <div class="suggest-name">No products found for "<b>${kw}</b>"</div>
+      </div>
+    `;
+            suggestBox.hidden = false;
+            return;
+        }
+
+        suggestBox.innerHTML = items
+            .map((p) => {
+                const name = p?.name || "Unnamed product";
+                const img = p?.image || "";
+                const price = (p?.price != null) ? `$${Number(p.price).toFixed(0)}` : "";
+                return `
+        <div class="suggest-item" data-name="${encodeURIComponent(name)}">
+          ${img ? `<img class="suggest-thumb" src="${img}" alt="">` : `<div class="suggest-thumb"></div>`}
+          <div>
+            <div class="suggest-name">${highlight(name, kw)}</div>
+            <div class="suggest-meta">${price}</div>
+          </div>
+        </div>
+      `;
+            })
+            .join("");
+
+        suggestBox.hidden = false;
+    };
+
+    // Filter theo name (contains)
+    const searchByName = (kw) => {
+        const q = normalize(kw);
+        if (!q) return [];
+        return getProductsSafe().filter(p => normalize(p?.name).includes(q));
+    };
+
+    // Input → suggest
+    if (searchInputEl && suggestBox) {
+        let lastKw = "";
+
+        searchInputEl.addEventListener("input", () => {
+            const kw = normalize(searchInputEl.value);
+            lastKw = kw;
+
+            if (kw.length < 2) {   // gõ <2 ký tự thì không hiện gợi ý
+                hideSuggest();
+                return;
+            }
+
+            const results = searchByName(kw).slice(0, 6); // top 6 gợi ý
+            showSuggest(results, kw);
+        });
+
+        // Click gợi ý: đi thẳng sang trang search với keyword đó
+        suggestBox.addEventListener("click", (e) => {
+            const item = e.target.closest(".suggest-item");
+            if (!item) return;
+
+            const encodedName = item.getAttribute("data-name");
+            if (!encodedName) return;
+
+            const name = decodeURIComponent(encodedName);
+            searchInputEl.value = name;
+            hideSuggest();
+
+            // submit form để ra list kết quả
+            if (searchForm) searchForm.requestSubmit?.();
+            else window.location.href = `search.html?q=${encodeURIComponent(name)}`;
+        });
+
+        // Click ra ngoài thì tắt suggest
+        document.addEventListener("click", (e) => {
+            const wrap = document.querySelector(".header-main .search");
+            if (!wrap) return;
+            if (!wrap.contains(e.target)) hideSuggest();
+        });
+
+        // ESC tắt suggest
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") hideSuggest();
+        });
+    }
+
+    // Submit: luôn đưa q lên URL search.html?q=...
+    if (searchForm && searchInputEl) {
+        searchForm.addEventListener("submit", (e) => {
+            const kw = normalize(searchInputEl.value);
+            if (!kw) {
+                e.preventDefault();
+                hideSuggest();
+                return;
+            }
+            hideSuggest();
+            // mặc định form GET đã tự chuyển qua search.html?q=...
+        });
+    }
 
 });
