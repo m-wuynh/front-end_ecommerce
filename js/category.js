@@ -1,20 +1,18 @@
 document.addEventListener("DOMContentLoaded", () => {
   const params = new URLSearchParams(window.location.search);
 
-  // category.html?category=jeans
-  // category.html?tag=onsale
-  // category.html?q=hoodie
-  // category.html?q=hoodie&page=2
+  // ===== 기존 params =====
   const categoryParam = params.get("category") || params.get("id");
   const tags = params.getAll("tag");
   const qRaw = params.get("q") || "";
   const q = qRaw.trim().toLowerCase();
+  const sortBy = params.get("sort") || "popular";
+
 
   const pageParam = parseInt(params.get("page") || "1", 10);
   let currentPage = Number.isFinite(pageParam) && pageParam > 0 ? pageParam : 1;
 
   const PER_PAGE = 9;
-
   const norm = (s) => (s ?? "").toString().trim().toLowerCase();
 
   const category = categoryParam ? norm(categoryParam) : null;
@@ -29,10 +27,46 @@ document.addEventListener("DOMContentLoaded", () => {
   const hasTags = wantedTags.length > 0;
   const hasQuery = q.length > 0;
 
-  // ===== 1) FILTER LIST =====
+  // ===== helpers: price / attribute getters (tự chịu được nhiều kiểu data) =====
+  const getPriceNumber = (p) => {
+    const raw =
+      p?.price ??
+      p?.priceCurrent ??
+      p?.currentPrice ??
+      p?.price_current ??
+      p?.amount ??
+      0;
+
+    // nếu là string kiểu "$120" -> lấy số
+    if (typeof raw === "string") {
+      const n = parseFloat(raw.replace(/[^\d.]/g, ""));
+      return Number.isFinite(n) ? n : 0;
+    }
+    return Number.isFinite(raw) ? raw : 0;
+  };
+
+  const getColors = (p) => {
+    // allproduct.js: colors = [{label, hex}, ...]
+    const arr = Array.isArray(p?.colors) ? p.colors : [];
+    return arr.map(c => norm(c?.label)).filter(Boolean); // ["black","white"...]
+  };
+
+
+  const getSizes = (p) => {
+    const arr = Array.isArray(p?.sizes) ? p.sizes : [];
+    return arr.map(s => (s ?? "").toString().trim()); // giữ nguyên "XS","28"
+  };
+
+  const getStyles = (p) => {
+    // nhiều bạn lưu style vào tag, nên mình ưu tiên tag
+    const tagArr = Array.isArray(p?.tag) ? p.tag : [];
+    const styleArr = Array.isArray(p?.styles) ? p.styles : (p?.style ? [p.style] : []);
+    return [...tagArr, ...styleArr].map(norm).filter(Boolean);
+  };
+
+  // ===== 1) BASE FILTER: category/tag/q =====
   let list = products;
 
-  // Ưu tiên search theo tên nếu có q
   if (hasQuery) {
     list = products.filter(p => norm(p?.name).includes(q));
   } else if (hasCategory || hasTags) {
@@ -40,11 +74,56 @@ document.addEventListener("DOMContentLoaded", () => {
       const okCategory = hasCategory && norm(p.category) === category;
       const productTags = (p.tag || []).map(norm);
       const okTags = hasTags && wantedTags.every(t => productTags.includes(t));
-      return okCategory || okTags; // OR
+      return okCategory || okTags; // OR (như bạn đang làm)
     });
   }
 
-  // ===== 2) UPDATE TITLE / BREADCRUMB =====
+  // ===== 2) FACET FILTER: price/color/size/style từ URL =====
+  const minParam = parseFloat(params.get("min") || "");
+  const maxParam = parseFloat(params.get("max") || "");
+  const minPrice = Number.isFinite(minParam) ? minParam : null;
+  const maxPrice = Number.isFinite(maxParam) ? maxParam : null;
+
+  const pickedColors = params.getAll("color").map(norm).filter(Boolean);
+  const pickedSizes = params.getAll("size")
+    .map(s => (s ?? "").toString().trim())
+    .filter(Boolean);
+
+  const pickedStyles = params.getAll("style").map(norm).filter(Boolean);
+
+  const hasMin = minPrice !== null;
+  const hasMax = maxPrice !== null;
+
+  if (hasMin || hasMax || pickedColors.length || pickedSizes.length || pickedStyles.length) {
+    list = list.filter(p => {
+      const price = getPriceNumber(p);
+
+      if (hasMin && price < minPrice) return false;
+      if (hasMax && price > maxPrice) return false;
+
+      if (pickedColors.length) {
+        const pc = getColors(p);
+        const ok = pickedColors.some(c => pc.includes(c));
+        if (!ok) return false;
+      }
+
+      if (pickedSizes.length) {
+        const ps = getSizes(p);
+        const ok = pickedSizes.some(s => ps.includes(s));
+        if (!ok) return false;
+      }
+
+      if (pickedStyles.length) {
+        const pst = getStyles(p);
+        const ok = pickedStyles.some(st => pst.includes(st));
+        if (!ok) return false;
+      }
+
+      return true;
+    });
+  }
+
+  // ===== 3) UPDATE TITLE / BREADCRUMB =====
   const breadcrumbCurrent = document.querySelectorAll(".breadcrumb-current");
   breadcrumbCurrent.forEach(el => {
     if (hasQuery) el.textContent = `${qRaw}`;
@@ -53,7 +132,29 @@ document.addEventListener("DOMContentLoaded", () => {
     else el.textContent = "Category";
   });
 
-  // ===== 3) PAGINATION RENDER =====
+
+  // ===== SORT =====
+  if (sortBy === "price-asc") {
+    list.sort((a, b) => getPriceNumber(a) - getPriceNumber(b));
+  }
+
+  if (sortBy === "price-desc") {
+    list.sort((a, b) => getPriceNumber(b) - getPriceNumber(a));
+  }
+  const sortSelect = document.getElementById("sortBy");
+  if (sortSelect) {
+    sortSelect.value = sortBy;
+  }
+  sortSelect?.addEventListener("change", () => {
+    const u = new URL(window.location.href);
+
+    u.searchParams.set("sort", sortSelect.value);
+    u.searchParams.set("page", "1"); // đổi sort thì về page 1
+
+    window.location.href = u.toString();
+  });
+
+  // ===== 4) PAGINATION RENDER =====
   const pager = document.querySelector(".plp-pagination");
   const prevBtn = pager?.querySelector(".prev-page");
   const nextBtn = pager?.querySelector(".next-page");
@@ -61,15 +162,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const totalItems = list.length;
   const totalPages = Math.max(1, Math.ceil(totalItems / PER_PAGE));
-
-  // clamp currentPage
   if (currentPage > totalPages) currentPage = totalPages;
-
-  const buildUrlWithPage = (page) => {
-    const u = new URL(window.location.href);
-    u.searchParams.set("page", String(page));
-    return u.toString();
-  };
 
   const syncUrl = (page) => {
     const u = new URL(window.location.href);
@@ -86,11 +179,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     renderProducts(pageItems, "grid_category");
 
-    // update UI trạng thái nút
     if (prevBtn) prevBtn.disabled = currentPage <= 1;
     if (nextBtn) nextBtn.disabled = currentPage >= totalPages;
 
-    // highlight số trang
     if (pagesUl) {
       [...pagesUl.querySelectorAll("button[data-page]")].forEach(btn => {
         const p = parseInt(btn.dataset.page, 10);
@@ -99,18 +190,13 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
 
-    // giữ page trên URL để refresh không bị về trang 1
     syncUrl(currentPage);
-
-    // (tuỳ chọn) auto scroll lên top grid cho UX tốt hơn
     document.getElementById("grid_category")?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   const renderPagerButtons = () => {
     if (!pagesUl) return;
 
-    // nếu bạn muốn kiểu 1 2 3 ... 10, mình làm bản gọn dưới đây
-    // hiển thị tối đa 7 nút: 1 ... (x-1) x (x+1) ... last
     const maxVisible = 7;
     const btn = (p) => `<li><button type="button" data-page="${p}">${p}</button></li>`;
     const dots = () => `<li><span style="opacity:.6;padding:0 6px;">...</span></li>`;
@@ -124,71 +210,163 @@ document.addEventListener("DOMContentLoaded", () => {
       const right = Math.min(totalPages - 1, currentPage + 1);
 
       html += btn(1);
-
       if (left > 2) html += dots();
-
       for (let p = left; p <= right; p++) html += btn(p);
-
       if (right < totalPages - 1) html += dots();
-
       html += btn(totalPages);
     }
 
     pagesUl.innerHTML = html;
 
-    // bind click
     pagesUl.querySelectorAll("button[data-page]").forEach(b => {
       b.addEventListener("click", () => renderPage(parseInt(b.dataset.page, 10)));
     });
   };
 
-  // bind prev/next
   prevBtn?.addEventListener("click", () => {
     if (currentPage > 1) renderPage(currentPage - 1);
   });
-
   nextBtn?.addEventListener("click", () => {
     if (currentPage < totalPages) renderPage(currentPage + 1);
   });
 
-  // init
   renderPagerButtons();
   renderPage(currentPage);
+
+  // ===== 5) INIT UI: tick checkbox theo URL (để refresh không mất state) =====
+  pickedColors.forEach(c => {
+    document.querySelectorAll(`.color-input[data-color="${c}"]`).forEach(el => el.checked = true);
+  });
+
+  pickedSizes.forEach(s => {
+    document.querySelectorAll(`.size-input[data-size="${s}"]`).forEach(el => el.checked = true);
+  });
+
+  pickedStyles.forEach(st => {
+    document.querySelectorAll(`.size-input[data-style="${st}"]`).forEach(el => el.checked = true);
+  });
+
+  // ===== 6) PRICE SLIDER: tạo slider + set theo URL =====
+  const sliderEl = document.getElementById("slider");
+  if (sliderEl && window.noUiSlider) {
+    // lấy min/max hợp lý từ products (base list) để slider không bị vô nghĩa
+    const prices = products.map(getPriceNumber).filter(n => Number.isFinite(n) && n > 0);
+    const minAll = prices.length ? Math.min(...prices) : 0;
+    const maxAll = prices.length ? Math.max(...prices) : 500;
+
+    // nếu đã có slider rồi thì bỏ qua
+    if (!sliderEl.noUiSlider) {
+      noUiSlider.create(sliderEl, {
+        start: [
+          minPrice !== null ? minPrice : minAll,
+          maxPrice !== null ? maxPrice : maxAll
+        ],
+        connect: true,
+        step: 1,
+        range: { min: minAll, max: maxAll },
+      });
+    } else {
+      sliderEl.noUiSlider.set([
+        minPrice !== null ? minPrice : minAll,
+        maxPrice !== null ? maxPrice : maxAll
+      ]);
+    }
+    const minText = document.getElementById("priceMinText");
+    const maxText = document.getElementById("priceMaxText");
+
+    const fmt = (n) => `$${Math.round(n)}`;
+
+    if (sliderEl?.noUiSlider && minText && maxText) {
+      // set lần đầu
+      const [a0, b0] = sliderEl.noUiSlider.get().map(v => parseFloat(v));
+      minText.textContent = fmt(a0);
+      maxText.textContent = fmt(b0);
+
+      // update realtime khi kéo
+      sliderEl.noUiSlider.on("update", (values) => {
+        const a = parseFloat(values[0]);
+        const b = parseFloat(values[1]);
+        minText.textContent = fmt(a);
+        maxText.textContent = fmt(b);
+      });
+    }
+
+  }
+
+  // ===== 7) APPLY BUTTON: đọc UI -> update URL -> reload =====
+  const btnApply = document.getElementById("btnApplyFilter");
+  btnApply?.addEventListener("click", () => {
+    const u = new URL(window.location.href);
+
+    // reset facet params
+    ["min", "max", "color", "size", "style", "page"].forEach(k => u.searchParams.delete(k));
+
+    // price
+    if (sliderEl?.noUiSlider) {
+      const [a, b] = sliderEl.noUiSlider.get().map(v => Math.round(parseFloat(v)));
+      u.searchParams.set("min", String(a));
+      u.searchParams.set("max", String(b));
+    }
+
+    // colors (multi)
+    document.querySelectorAll(".color-input:checked").forEach(el => {
+      const c = norm(el.getAttribute("data-color"));
+      if (c) u.searchParams.append("color", c);
+    });
+
+    // sizes (multi)
+    document.querySelectorAll('.size-input:checked[data-size]').forEach(el => {
+      const s = (el.getAttribute("data-size") ?? "").toString().trim();
+      if (s) u.searchParams.append("size", s);
+
+    });
+
+    // styles (multi)
+    document.querySelectorAll('.size-input:checked[data-style]').forEach(el => {
+      const st = norm(el.getAttribute("data-style"));
+      if (st) u.searchParams.append("style", st);
+    });
+
+    // apply => quay về page 1
+    u.searchParams.set("page", "1");
+    window.location.href = u.toString();
+  });
+
 });
 
 
 // ===== Mobile filter drawer (bottom sheet) =====
 document.addEventListener('DOMContentLoaded', () => {
-    const btn = document.querySelector('.filter-toggle');
-    const backdrop = document.querySelector('.filter-backdrop');
-    const closeBtn = document.querySelector('.filter-close');
+  const btn = document.querySelector('.filter-toggle');
+  const backdrop = document.querySelector('.filter-backdrop');
+  const closeBtn = document.querySelector('.filter-close');
 
-    if (!btn || !backdrop) return;
+  if (!btn || !backdrop) return;
 
-    const open = () => {
-        document.body.classList.add('filter-open');
-        btn.setAttribute('aria-expanded', 'true');
-    };
+  const open = () => {
+    document.body.classList.add('filter-open');
+    btn.setAttribute('aria-expanded', 'true');
+  };
 
-    const close = () => {
-        document.body.classList.remove('filter-open');
-        btn.setAttribute('aria-expanded', 'false');
-    };
+  const close = () => {
+    document.body.classList.remove('filter-open');
+    btn.setAttribute('aria-expanded', 'false');
+  };
 
-    btn.addEventListener('click', () => {
-        const isOpen = document.body.classList.contains('filter-open');
-        isOpen ? close() : open();
-    });
+  btn.addEventListener('click', () => {
+    const isOpen = document.body.classList.contains('filter-open');
+    isOpen ? close() : open();
+  });
 
-    backdrop.addEventListener('click', close);
-    closeBtn?.addEventListener('click', close);
+  backdrop.addEventListener('click', close);
+  closeBtn?.addEventListener('click', close);
 
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') close();
-    });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') close();
+  });
 
-    // Safety: if user rotates / resizes to desktop, close drawer
-    window.addEventListener('resize', () => {
-        if (window.innerWidth > 768) close();
-    });
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 900) close();
+  });
+
 });

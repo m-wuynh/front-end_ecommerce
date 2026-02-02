@@ -110,51 +110,44 @@
         <section class="category-content">
             <aside class="filter" id="mobileFilter" data-filter-panel>
                 <section class="filter-header">
-                    <h2>Filter</h2> <button class="filter-close" type="button" aria-label="Close filter"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            stroke-width="1.5" stroke="currentColor" class="icon">
+                    <h2>Filter</h2> <button class="filter-close" type="button" aria-label="Close filter"><svg
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="icon">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M6 13.5V3.75m0 9.75a1.5 1.5 0 0 1 0 3m0-3a1.5 1.5 0 0 0 0 3m0 3.75V16.5m12-3V3.75m0 9.75a1.5 1.5 0 0 1 0 3m0-3a1.5 1.5 0 0 0 0 3m0 3.75V16.5m-6-9V3.75m0 3.75a1.5 1.5 0 0 1 0 3m0-3a1.5 1.5 0 0 0 0 3m0 9.75V10.5" />
                         </svg>
                     </button>
                 </section>
                 <div class="device"></div>
-                <section class="filter-product">
-                    <ul>
-                        <li><a href="">T-shirts <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="currentColor" class="icon">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-                                </svg>
-                            </a></li>
-                        <li><a href="">Shorts <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="currentColor" class="icon">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-                                </svg>
-                            </a></li>
-                        <li><a href="">Shirts <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="currentColor" class="icon">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-                                </svg>
-                            </a></li>
-                        <li><a href="">Hoodie <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="currentColor" class="icon">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-                                </svg>
-                            </a></li>
-                        <li><a href="">Jeans <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="currentColor" class="icon">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-                                </svg>
-                            </a></li>
-                    </ul>
+                <section class="filter-category">
+                    <h3>Category</h3>
+
+                    <div class="style-options">
+                        <input id="cat-tshirts" class="size-input" type="checkbox" data-category="t-shirts">
+                        <label for="cat-tshirts">T-shirts</label>
+
+                        <input id="cat-shorts" class="size-input" type="checkbox" data-category="shorts">
+                        <label for="cat-shorts">Shorts</label>
+
+                        <input id="cat-shirts" class="size-input" type="checkbox" data-category="shirts">
+                        <label for="cat-shirts">Shirts</label>
+
+                        <input id="cat-hoodie" class="size-input" type="checkbox" data-category="hoodie">
+                        <label for="cat-hoodie">Hoodie</label>
+
+                        <input id="cat-jeans" class="size-input" type="checkbox" data-category="jeans">
+                        <label for="cat-jeans">Jeans</label>
+                    </div>
                 </section>
+
                 <div class="device"></div>
                 <section class="filter-price">
-                    <div class="price-title">Price
+                    <div class="price-title">
+                        <span>Price</span>
+                        <div class="price-values">
+                            <span id="priceMinText">$0</span>
+                            <span id="priceMaxText">$0</span>
+                        </div>
                         <button class="btn"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke-width="1.5" stroke="currentColor" class="icon">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" />
@@ -205,15 +198,16 @@
                         </button>
                     </div>
                     <div>
-                        <input id="xx-small" class="size-input" type="checkbox"><label for="xx-small">XX-Small</label>
-                        <input id="x-small" class="size-input" type="checkbox"><label for="x-small">X-Small</label>
-                        <input id="small" class="size-input" type="checkbox"><label for="small">Small</label>
-                        <input id="medium" class="size-input" type="checkbox"><label for="medium">Medium</label>
-                        <input id="large" class="size-input" type="checkbox"><label for="large">Large</label>
-                        <input id="x-large" class="size-input" type="checkbox"><label for="x-large">X-Large</label>
-                        <input id="xx-large" class="size-input" type="checkbox"><label for="xx-large">XX-Large</label>
-                        <input id="3x-large" class="size-input" type="checkbox"><label for="3x-large">3X-Large</label>
-                        <input id="4x-large" class="size-input" type="checkbox"><label for="4x-large">4X-Large</label>
+                        <input id="size-xs" class="size-input" type="checkbox" data-size="XS"><label
+                            for="size-xs">XS</label>
+                        <input id="size-s" class="size-input" type="checkbox" data-size="S"><label
+                            for="size-s">S</label>
+                        <input id="size-m" class="size-input" type="checkbox" data-size="M"><label
+                            for="size-m">M</label>
+                        <input id="size-l" class="size-input" type="checkbox" data-size="L"><label
+                            for="size-l">L</label>
+                        <input id="size-xl" class="size-input" type="checkbox" data-size="XL"><label
+                            for="size-xl">XL</label>
 
                     </div>
                 </section>
@@ -226,33 +220,22 @@
                             </svg>
                         </button>
                     </div>
-                    <div>
-                        <ul>
-                            <li>Casual <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="currentColor" class="icon">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-                                </svg></li>
-                            <li>Formal <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="currentColor" class="icon">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-                                </svg></li>
-                            <li>Party <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="currentColor" class="icon">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-                                </svg></li>
-                            <li>Gym <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="currentColor" class="icon">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-                                </svg></li>
-                        </ul>
+                    <div class="style-options">
+                        <input id="style-casual" class="size-input" type="checkbox" data-style="casual">
+                        <label for="style-casual">Casual</label>
+
+                        <input id="style-formal" class="size-input" type="checkbox" data-style="formal">
+                        <label for="style-formal">Formal</label>
+
+                        <input id="style-party" class="size-input" type="checkbox" data-style="party">
+                        <label for="style-party">Party</label>
+
+                        <input id="style-gym" class="size-input" type="checkbox" data-style="gym">
+                        <label for="style-gym">Gym</label>
                     </div>
                 </section>
                 <section class="apply-filter">
-                    <button type="button">Apply Filter</button>
+                    <button id="btnApplyFilter" type="button">Apply Filter</button>
                 </section>
             </aside>
             <section class="plp">
@@ -261,17 +244,19 @@
                         <h1 class="breadcrumb-current" style="text-transform: uppercase;">Category</h1>
                     </div>
                     <div class="plp-actions">
-                        <label class="sort sort-wrap">Sort by:
-                            <select name="sort" aria-label="Sort products">
+                        <label>
+                            Sort by:
+                            <select id="sortBy">
                                 <option value="popular">Most Popular</option>
-                                <option value="price-low">Low to High</option>
-                                <option value="price-high">High to Low</option>
+                                <option value="price-asc">Price: Low → High</option>
+                                <option value="price-desc">Price: High → Low</option>
                             </select>
                         </label>
-
                         <button class="filter-toggle" type="button" aria-label="Open filter" aria-expanded="false">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 3c2.755 0 5 2.245 5 5 0 1.747-.91 3.281-2.277 4.157a.75.75 0 0 0-.348.63V21l-4.75-2.375V12.787a.75.75 0 0 0-.348-.63A4.986 4.986 0 0 1 7 8c0-2.755 2.245-5 5-5Z" />
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" class="icon">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M12 3c2.755 0 5 2.245 5 5 0 1.747-.91 3.281-2.277 4.157a.75.75 0 0 0-.348.63V21l-4.75-2.375V12.787a.75.75 0 0 0-.348-.63A4.986 4.986 0 0 1 7 8c0-2.755 2.245-5 5-5Z" />
                             </svg>
                             <span class="filter-toggle-text">Filter</span>
                         </button>
@@ -380,8 +365,7 @@
                 <div>
                     <h3>HELP</h3>
                     <ul>
-                        <li><a href="#customer-support">Customer Support</a>
-                        </li>
+                        <li><a href="#customer-support">Customer Support</a></li>
                         <li><a href="#delivery-details">Delivery Details</a></li>
                         <li><a href="#terms">Terms & Conditions</a></li>
                         <li><a href="#privacy">Privacy Policy</a></li>
