@@ -222,3 +222,5 @@ const colorPool = [
 
 // ✅ this is the variable your project can import/use
 const PRODUCTS = generateProducts(100, 20260128);
+window.PRODUCTS = PRODUCTS;
+
