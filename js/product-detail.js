@@ -158,7 +158,7 @@ document.addEventListener("DOMContentLoaded", () => {
       render();
     });
 
-    // Add to cart (demo localStorage)
+    // Add to cart (localStorage)
     root.querySelector("#addCart").addEventListener("click", () => {
       const pickedColor = product.colors?.[colorIndex]?.label ?? null;
 
@@ -166,6 +166,7 @@ document.addEventListener("DOMContentLoaded", () => {
         id: product.id,
         name: product.name,
         price: product.price,
+        oldPrice: product.oldPrice ?? null,  // thêm để tính discount ở cart
         image: product.image,
         color: pickedColor,
         size: sizeValue,
@@ -173,9 +174,21 @@ document.addEventListener("DOMContentLoaded", () => {
       };
 
       const cart = JSON.parse(localStorage.getItem("CART") || "[]");
-      cart.push(item);
-      localStorage.setItem("CART", JSON.stringify(cart));
 
+      // gộp nếu trùng biến thể (id + color + size)
+      const idx = cart.findIndex(x =>
+        x.id === item.id &&
+        x.color === item.color &&
+        x.size === item.size
+      );
+
+      if (idx >= 0) {
+        cart[idx].qty += item.qty;
+      } else {
+        cart.push(item);
+      }
+      localStorage.setItem("CART", JSON.stringify(cart));
+      
       alert("Added to cart!");
     });
   }
