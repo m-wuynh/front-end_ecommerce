@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    <header class="header">
+        <header class="header">
         <div class="announcement-bar">
             <p>Sign up and get 20% off your first order.
                 <a href="#signup" class="cta-button">Sign Up Now </a>
@@ -37,7 +37,7 @@
                 </button>
             </div>
             <div> <a href="index.html" class="logo">Shop.co</a></div>
-            <nav class="nav-header" aria-label="Header Navigation">
+            <nav class="nav-header" aria-label="Primary Navigation">
                 <ul>
                     <li class="shop-menu">
                         <button type="button" class="shop-menu-btn" aria-controls="shop-menu" aria-expanded="false">Shop
@@ -69,7 +69,10 @@
                             d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
                     </svg>
                 </button>
-                <input type="text" placeholder="Search products...">
+                <form class="search-form" action="category.html" method="GET">
+                    <input id="headerSearchInput" type="text" name="q" placeholder="Search products...">
+                    <div class="search-suggest" id="searchSuggest" hidden></div>
+                </form>
             </div>
             <div class="user-actions">
                 <a href="cart.html">
