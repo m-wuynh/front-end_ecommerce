@@ -131,3 +131,82 @@
     }
 
 }
+
+/* =========================
+   FOOTER RESPONSIVE
+   <=1200 / <=900 / <=600 / <=400
+   Dán xuống CUỐI file footer.css (sau media 768)
+========================= */
+
+/* <= 1200px: giảm cột 4 -> 3, giảm khoảng trống */
+@media (max-width: 1200px) {
+  .footer-links {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    flex: 1 1 auto; /* bỏ ép 80% */
+  }
+
+  .footer-links ul li,
+  .footer-links ul li a {
+    margin: 6px; /* bớt margin để cột rộng hơn */
+  }
+}
+
+/* <= 900px: 3 -> 2 cột, footer-main xếp dọc cho chắc */
+@media (max-width: 900px) {
+  .footer-main {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .footer-links {
+    width: 100%;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  .footer-payment-methods {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}
+
+/* <= 600px: vẫn 2 cột nhưng “nới” chữ, giảm margin để hạn chế xuống dòng */
+@media (max-width: 600px) {
+  .footer {
+    padding: 16px;
+  }
+
+  .footer-links {
+    gap: 18px;
+    grid-template-columns: repeat(2, minmax(0, 1fr)); /* chống tràn */
+  }
+
+  /* Giảm margin (đây là cái làm cột bị hẹp rất nhiều) */
+  .footer-links ul li { margin: 4px 0; }
+  .footer-links ul li a { margin: 0; }
+
+  /* Cho link chiếm full width để canh đều */
+  .footer-links ul li a {
+    display: inline-block;
+    max-width: 100%;
+  }
+}
+
+/* <= 400px: ép về 1 cột để link KHÔNG bị bẻ dòng khó chịu */
+@media (max-width: 400px) {
+  .footer-links {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .footer-bottom {
+    align-items: flex-start;
+  }
+
+  .footer-payment-methods ul {
+    flex-wrap: wrap; /* icon nếu chật thì xuống hàng */
+  }
+  
+}

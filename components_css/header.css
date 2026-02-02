@@ -189,6 +189,59 @@
     background: rgba(0, 0, 0, .05);
 }
 
+/* Search suggest dropdown */
+.header-main .search {
+    position: relative;
+}
+
+.header-main .search .search-form {
+    position: relative;
+    flex: 1;
+}
+
+.header-main .search .search-suggest {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: calc(100% + 8px);
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    z-index: 9999;
+}
+
+.header-main .search .suggest-item {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 10px 12px;
+    cursor: pointer;
+}
+
+.header-main .search .suggest-item:hover {
+    background: rgba(0, 0, 0, 0.04);
+}
+
+.header-main .search .suggest-thumb {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    object-fit: cover;
+    background: rgba(0, 0, 0, 0.04);
+}
+
+.header-main .search .suggest-name {
+    font-size: 14px;
+    line-height: 1.2;
+}
+
+.header-main .search .suggest-meta {
+    font-size: 12px;
+    opacity: 0.7;
+}
+
 
 @media (max-width: 768px) {
     .announcement-bar {
@@ -296,5 +349,104 @@
 
     .header-main nav.nav-header .shop-dropdown a {
         padding: 10px 0;
+    }
+}
+
+/* =========================
+   Header responsive: <=1200 / <=900 / <=600 / <=400
+   Dán xuống CUỐI header.css
+========================= */
+
+/* <=1200: nav chữ nhỏ hơn, khoảng cách gọn */
+@media (max-width: 1200px) {
+    .header-main nav ul {
+        gap: 14px;
+    }
+
+    .header-main nav ul li a,
+    .header-main .shop-menu-btn {
+        font-size: 20px;
+    }
+
+    .header-main .logo {
+        font-size: 40px;
+    }
+}
+
+/* <=900: logo nhỏ thêm, user-actions bớt gap */
+@media (max-width: 900px) {
+    .header-main {
+        margin: 10px;
+    }
+
+    .header-main .logo {
+        font-size: 36px;
+    }
+
+    .header-main .user-actions {
+        gap: 10px;
+    }
+}
+
+/* <=600: icon nhỏ lại + search mở ra gọn hơn */
+@media (max-width: 600px) {
+    .announcement-bar {
+        font-size: 12px;
+    }
+
+    .header-main .logo {
+        font-size: 32px;
+    }
+
+    .header-main .icon {
+        width: 28px;
+        height: 28px;
+    }
+
+    .announcement-bar .icon {
+        width: 20px;
+        height: 20px;
+    }
+
+    /* search open: đừng quá rộng */
+    .header-main .search.is-open input {
+        width: 140px;
+    }
+}
+
+/* <=400: ưu tiên space cho logo + icon, search mở ra nhỏ hơn, drawer hẹp hơn */
+@media (max-width: 400px) {
+    .header-main {
+        margin: 8px;
+    }
+
+    .header-main .logo {
+        font-size: 28px;
+    }
+
+    .header-main .icon {
+        width: 26px;
+        height: 26px;
+    }
+
+    .header-main .search {
+        padding: 4px;
+    }
+
+    .header-main .search.is-open input {
+        width: 120px;
+        padding: 4px;
+        font-size: 14px;
+    }
+
+    /* drawer nhỏ hơn để không chiếm hết màn */
+    .header-main nav.nav-header {
+        width: min(86vw, 300px);
+        padding: 72px 16px 16px;
+    }
+
+    .header-main nav.nav-header a,
+    .header-main nav.nav-header button.shop-menu-btn {
+        font-size: 16px;
     }
 }
