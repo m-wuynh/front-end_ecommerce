@@ -29,6 +29,7 @@
 
 .banner-pin h1 {
     margin: 0;
+    font-size: 26px;
     font: sans-serif;
 }
 
@@ -78,20 +79,6 @@
     height: 24px;
 }
 
-@media (max-width: 768px) {
-
-    .banner-pin {
-        flex-direction: column;
-        text-align: center;
-        gap: 12px;
-        padding: 16px;
-        justify-self: center;
-    }
-
-    .banner-subscribe {
-        justify-self: center;
-    }
-}
 
 /* =========================
    Banner responsive: <=1200 / <=900 / <=600 / <=400
@@ -99,20 +86,20 @@
 ========================= */
 
 /* <=1200: giữ layout nhưng giảm padding chút */
-@media (max-width: 1200px) {
+@media (max-width: 1024px) {
     .banner-pin {
         padding: 16px;
         border-radius: 40px;
-    }
-}
-
-/* <=900: cho chắc ăn về stack + subscribe full width */
-@media (max-width: 900px) {
-    .banner-pin {
         flex-direction: column;
         gap: 12px;
         align-items: stretch;
         text-align: left;
+    }
+
+    .banner-pin h1 {
+        margin: 0;
+        font-size: 26px;
+        font: sans-serif;
     }
 
     .banner-subscribe {
@@ -126,15 +113,29 @@
     }
 }
 
-/* <=600: gọn hơn */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
+
+    .banner-pin {
+        flex-direction: column;
+        text-align: center;
+        gap: 12px;
+        justify-self: center;
+    }
+
+    .banner-subscribe {
+        justify-self: center;
+    }
+}
+
+/* <=400: chống tràn tuyệt đối */
+@media (max-width: 425px) {
     .banner-pin {
         padding: 14px;
         border-radius: 28px;
     }
 
     .banner-pin h1 {
-        font-size: 18px;
+        font-size: 15px;
         line-height: 1.2;
     }
 
@@ -142,18 +143,10 @@
         max-width: 100%;
         gap: 10px;
     }
-
-    .email-subscribe {
-        padding: 6px 10px;
-    }
-
     .banner-pin button {
         padding: 10px 12px;
     }
-}
 
-/* <=400: chống tràn tuyệt đối */
-@media (max-width: 400px) {
     .banner-pin {
         padding: 12px;
         border-radius: 22px;

@@ -1,136 +1,106 @@
 .footer {
-    background-color: #f8f8f8;
-    padding: 20px;
+  background-color: #f8f8f8;
+  padding: 20px;
 }
 
 .footer-main {
-    margin: 0%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font: 1em sans-serif;
-    text-align: left;
+  margin: 0%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font: 1em sans-serif;
+  text-align: left;
 }
 
 .footer-social {
-    margin-top: 16px;
-    display: flex;
-    align-items: center;
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
 
-    gap: 16px;
-    justify-content: left;
+  gap: 16px;
+  justify-content: left;
 }
 
 .footer-social ul {
-    list-style: none;
-    display: flex;
-    gap: 16px;
-    padding: 0;
-    margin: 0;
+  list-style: none;
+  display: flex;
+  gap: 16px;
+  padding: 0;
+  margin: 0;
 }
 
 .footer-social .icon {
-    width: 32px;
-    height: 32px;
+  width: 32px;
+  height: 32px;
 }
 
 .footer-social a {
-    color: #333;
-    text-decoration: none;
-    font-size: 1.5em;
+  color: #333;
+  text-decoration: none;
+  font-size: 1.5em;
 }
 
 .footer-links {
-    flex: 0 0 80%;
-    gap: 40px;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    justify-content: space-between;
-    align-items: center;
-    font: 1em sans-serif;
-    text-align: left;
+  flex: 0 0 80%;
+  gap: 40px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  justify-content: space-between;
+  align-items: center;
+  font: 1em sans-serif;
+  text-align: left;
 }
 
 .footer-links ul {
-    list-style: none;
-    padding: 0;
+  list-style: none;
+  padding: 0;
 }
 
 .footer-links ul li {
-    margin: 8px;
+  margin: 8px;
 }
 
 .footer-links ul li a {
-    text-decoration: none;
-    color: #333;
-    font-size: 1em;
-    margin: 8px;
+  text-decoration: none;
+  color: #333;
+  font-size: 1em;
+  margin: 8px;
 }
 
 .footer-bottom {
-    margin: 12px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font: 0.9em sans-serif;
-    color: #666;
+  margin: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font: 0.9em sans-serif;
+  color: #666;
 }
 
 .footer-payment-methods {
-    margin-top: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }
 
 .footer-payment-methods ul {
-    list-style: none;
-    display: flex;
-    gap: 16px;
-    padding: 0;
-    margin: 0;
+  list-style: none;
+  display: flex;
+  gap: 16px;
+  padding: 0;
+  margin: 0;
 }
 
 .footer-payment-methods ul li {
-    margin: 8px;
+  margin: 8px;
 }
 
 .footer-payment-methods .footer-icon {
-    width: 48px;
-    height: 32px;
+  width: 48px;
+  height: 32px;
 }
 
-@media (max-width: 768px) {
 
-    .footer-main,
-    .footer-bottom {
-        flex-direction: column;
-        text-align: flex-start;
-        gap: 12px;
-        padding: 10px;
-    }
-
-    .footer-about {
-        margin-bottom: 20px;
-        justify-content: flex-start;
-        align-items: center;
-    }
-
-    .footer-links {
-        gap: 40px;
-        grid-template-columns: repeat(2, 1fr);
-        align-items: center;
-        font: 1em sans-serif;
-        text-align: left;
-        flex-wrap: wrap;
-        flex: 1 1 160px;
-    }
-
-    .footer-payment-methods {
-        justify-content: center;
-    }
-
-}
 
 /* =========================
    FOOTER RESPONSIVE
@@ -139,21 +109,20 @@
 ========================= */
 
 /* <= 1200px: giảm cột 4 -> 3, giảm khoảng trống */
-@media (max-width: 1200px) {
+@media (max-width: 1024px) {
   .footer-links {
     grid-template-columns: repeat(2, 1fr);
     gap: 28px;
-    flex: 1 1 auto; /* bỏ ép 80% */
+    flex: 1 1 auto;
+    /* bỏ ép 80% */
   }
 
   .footer-links ul li,
   .footer-links ul li a {
-    margin: 6px; /* bớt margin để cột rộng hơn */
+    margin: 6px;
+    /* bớt margin để cột rộng hơn */
   }
-}
 
-/* <= 900px: 3 -> 2 cột, footer-main xếp dọc cho chắc */
-@media (max-width: 900px) {
   .footer-main {
     flex-direction: column;
     align-items: flex-start;
@@ -172,30 +141,65 @@
   }
 }
 
-/* <= 600px: vẫn 2 cột nhưng “nới” chữ, giảm margin để hạn chế xuống dòng */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
+
+  .footer-main,
+  .footer-bottom {
+    flex-direction: column;
+    text-align: flex-start;
+    gap: 12px;
+    padding: 10px;
+  }
+
+  .footer-about {
+    margin-bottom: 20px;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  .footer-links {
+    gap: 40px;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center;
+    font: 1em sans-serif;
+    text-align: left;
+    flex-wrap: wrap;
+    flex: 1 1 160px;
+  }
+
+  .footer-payment-methods {
+    justify-content: center;
+  }
+
+}
+
+/* <= 400px: ép về 1 cột để link KHÔNG bị bẻ dòng khó chịu */
+@media (max-width: 425px) {
   .footer {
     padding: 16px;
   }
 
   .footer-links {
     gap: 18px;
-    grid-template-columns: repeat(2, minmax(0, 1fr)); /* chống tràn */
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    /* chống tràn */
   }
 
   /* Giảm margin (đây là cái làm cột bị hẹp rất nhiều) */
-  .footer-links ul li { margin: 4px 0; }
-  .footer-links ul li a { margin: 0; }
+  .footer-links ul li {
+    margin: 4px 0;
+  }
+
+  .footer-links ul li a {
+    margin: 0;
+  }
 
   /* Cho link chiếm full width để canh đều */
   .footer-links ul li a {
     display: inline-block;
     max-width: 100%;
   }
-}
 
-/* <= 400px: ép về 1 cột để link KHÔNG bị bẻ dòng khó chịu */
-@media (max-width: 400px) {
   .footer-links {
     grid-template-columns: 1fr;
     gap: 14px;
@@ -206,7 +210,8 @@
   }
 
   .footer-payment-methods ul {
-    flex-wrap: wrap; /* icon nếu chật thì xuống hàng */
+    flex-wrap: wrap;
+    /* icon nếu chật thì xuống hàng */
   }
-  
+
 }

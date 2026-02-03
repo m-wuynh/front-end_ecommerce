@@ -8,10 +8,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 8px 0;
     font-size: 14px;
     font: 1em sans-serif;
     position: relative;
+    height: 38px;
 }
 
 .announcement-bar .cta-button {
@@ -243,11 +243,42 @@
 }
 
 
-@media (max-width: 768px) {
-    .announcement-bar {
-        font-size: 12px;
-        padding: 6px 0;
+
+
+/* =========================
+   Header responsive: <=1200 / <=900 / <=600 / <=400
+   Dán xuống CUỐI header.css
+========================= */
+
+/* <=1200: nav chữ nhỏ hơn, khoảng cách gọn */
+@media (max-width: 1024px) {
+    .header-main nav ul {
+        gap: 14px;
     }
+
+    .header-main nav ul li a,
+    .header-main .shop-menu-btn {
+        font-size: 20px;
+    }
+
+    .header-main .logo {
+        font-size: 40px;
+    }
+
+    .header-main {
+        margin: 10px;
+    }
+
+    .header-main .logo {
+        font-size: 36px;
+    }
+
+    .header-main .user-actions {
+        gap: 10px;
+    }
+}
+
+@media (max-width: 768px) {
 
     .header-main .search input {
         display: none;
@@ -352,44 +383,8 @@
     }
 }
 
-/* =========================
-   Header responsive: <=1200 / <=900 / <=600 / <=400
-   Dán xuống CUỐI header.css
-========================= */
-
-/* <=1200: nav chữ nhỏ hơn, khoảng cách gọn */
-@media (max-width: 1200px) {
-    .header-main nav ul {
-        gap: 14px;
-    }
-
-    .header-main nav ul li a,
-    .header-main .shop-menu-btn {
-        font-size: 20px;
-    }
-
-    .header-main .logo {
-        font-size: 40px;
-    }
-}
-
-/* <=900: logo nhỏ thêm, user-actions bớt gap */
-@media (max-width: 900px) {
-    .header-main {
-        margin: 10px;
-    }
-
-    .header-main .logo {
-        font-size: 36px;
-    }
-
-    .header-main .user-actions {
-        gap: 10px;
-    }
-}
-
-/* <=600: icon nhỏ lại + search mở ra gọn hơn */
-@media (max-width: 600px) {
+/* <=400: ưu tiên space cho logo + icon, search mở ra nhỏ hơn, drawer hẹp hơn */
+@media (max-width: 425px) {
     .announcement-bar {
         font-size: 12px;
     }
@@ -412,10 +407,7 @@
     .header-main .search.is-open input {
         width: 140px;
     }
-}
 
-/* <=400: ưu tiên space cho logo + icon, search mở ra nhỏ hơn, drawer hẹp hơn */
-@media (max-width: 400px) {
     .header-main {
         margin: 8px;
     }
