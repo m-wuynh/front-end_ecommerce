@@ -207,27 +207,9 @@ body {
   object-fit: cover;
 }
 
-/* ================== <= 1400px ================== */
-@media (max-width: 1400px) {
-  .cart-layout {
-    max-width: 1180px;
-    padding: 24px;
-  }
-
-  .cart-items,
-  .order-summary {
-    margin: 12px;
-  }
-
-  .cart-item {
-    padding: 18px;
-    margin: 16px 12px;
-    border-radius: 22px;
-  }
-}
 
 /* ================== <= 1200px ================== */
-@media (max-width: 1200px) {
+@media (max-width: 1024px) {
   .main-content {
     padding: 24px 3%;
   }
@@ -252,7 +234,7 @@ body {
 }
 
 /* ================== <= 900px (Tablet) ================== */
-@media (max-width: 900px) {
+@media (max-width: 768px) {
   .cart-layout {
     grid-template-columns: 1fr;
     /* chuyển về 1 cột */
@@ -269,8 +251,8 @@ body {
   }
 }
 
-/* ================== <= 600px (Mobile) ================== */
-@media (max-width: 600px) {
+/* ================== <= 400px (Small mobile) ================== */
+@media (max-width: 425px) {
   .page-title {
     font-size: 28px;
     /* nếu bạn có style riêng thì có thể bỏ */
@@ -341,10 +323,7 @@ body {
     margin: 0;
     width: 100%;
   }
-}
 
-/* ================== <= 400px (Small mobile) ================== */
-@media (max-width: 400px) {
   .breadcrumb {
     font-size: 12px;
     flex-wrap: wrap;
