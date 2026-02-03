@@ -516,6 +516,12 @@ body {
         gap: 14px;
     }
 
+    .filter-toggle {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+
     .filter {
         max-width: 300px;
         border-radius: 22px;
@@ -584,6 +590,7 @@ body {
     .plp-grid {
         padding: 0;
     }
+    
 }
 
 /* ================== <= 600px ================== */

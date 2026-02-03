@@ -1,8 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
   const params = new URLSearchParams(window.location.search);
+  const norm = (s) => (s ?? "").toString().trim().toLowerCase();
 
   // ===== 기존 params =====
-  const categoryParam = params.get("category") || params.get("id");
+  const pickedCategories = params.getAll("category").map(norm).filter(Boolean);
   const tags = params.getAll("tag");
   const qRaw = params.get("q") || "";
   const q = qRaw.trim().toLowerCase();
@@ -13,9 +14,9 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentPage = Number.isFinite(pageParam) && pageParam > 0 ? pageParam : 1;
 
   const PER_PAGE = 9;
-  const norm = (s) => (s ?? "").toString().trim().toLowerCase();
 
-  const category = categoryParam ? norm(categoryParam) : null;
+  const legacyCategory = norm(params.get("id") || "");
+  if (!pickedCategories.length && legacyCategory) pickedCategories.push(legacyCategory);
   const wantedTags = [...new Set(tags.map(norm).filter(Boolean))];
 
   // đảm bảo lấy được PRODUCTS
@@ -23,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ? window.PRODUCTS
     : (typeof PRODUCTS !== "undefined" ? PRODUCTS : []);
 
-  const hasCategory = !!category;
+  const hasCategory = pickedCategories.length > 0;
   const hasTags = wantedTags.length > 0;
   const hasQuery = q.length > 0;
 
@@ -71,9 +72,9 @@ document.addEventListener("DOMContentLoaded", () => {
     list = products.filter(p => norm(p?.name).includes(q));
   } else if (hasCategory || hasTags) {
     list = products.filter(p => {
-      const okCategory = hasCategory && norm(p.category) === category;
+      const okCategory = hasCategory && pickedCategories.includes(norm(p.category));
       const productTags = (p.tag || []).map(norm);
-      const okTags = hasTags && wantedTags.every(t => productTags.includes(t));
+      const okTags = hasTags && wantedTags.some(t => productTags.includes(t));
       return okCategory || okTags; // OR (như bạn đang làm)
     });
   }
@@ -89,7 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
     .map(s => (s ?? "").toString().trim())
     .filter(Boolean);
 
-  const pickedStyles = params.getAll("style").map(norm).filter(Boolean);
+  const pickedStyles = params.getAll("tag").map(norm).filter(Boolean);
 
   const hasMin = minPrice !== null;
   const hasMax = maxPrice !== null;
@@ -127,7 +128,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const breadcrumbCurrent = document.querySelectorAll(".breadcrumb-current");
   breadcrumbCurrent.forEach(el => {
     if (hasQuery) el.textContent = `${qRaw}`;
-    else if (hasCategory) el.textContent = categoryParam;
+    else if (hasCategory) el.textContent = pickedCategories.join(", ");
     else if (hasTags) el.textContent = wantedTags.join(", ");
     else el.textContent = "Category";
   });
@@ -234,6 +235,10 @@ document.addEventListener("DOMContentLoaded", () => {
   renderPage(currentPage);
 
   // ===== 5) INIT UI: tick checkbox theo URL (để refresh không mất state) =====
+  pickedCategories.forEach(c => {
+    document.querySelectorAll(`.size-input[data-category="${c}"]`).forEach(el => el.checked = true);
+  });
+
   pickedColors.forEach(c => {
     document.querySelectorAll(`.color-input[data-color="${c}"]`).forEach(el => el.checked = true);
   });
@@ -295,41 +300,57 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // ===== 7) APPLY BUTTON: đọc UI -> update URL -> reload =====
   const btnApply = document.getElementById("btnApplyFilter");
+
   btnApply?.addEventListener("click", () => {
-    const u = new URL(window.location.href);
+    // URL mới tinh (không lấy params cũ)
+    const newParams = new URLSearchParams();
 
-    // reset facet params
-    ["min", "max", "color", "size", "style", "page"].forEach(k => u.searchParams.delete(k));
-
-    // price
+    // ===== PRICE =====
+    const sliderEl = document.getElementById("slider");
     if (sliderEl?.noUiSlider) {
       const [a, b] = sliderEl.noUiSlider.get().map(v => Math.round(parseFloat(v)));
-      u.searchParams.set("min", String(a));
-      u.searchParams.set("max", String(b));
+      newParams.set("min", String(a));
+      newParams.set("max", String(b));
     }
 
-    // colors (multi)
+    // ===== COLORS (multi) =====
     document.querySelectorAll(".color-input:checked").forEach(el => {
-      const c = norm(el.getAttribute("data-color"));
-      if (c) u.searchParams.append("color", c);
+      const c = (el.getAttribute("data-color") ?? "").toString().trim().toLowerCase();
+      if (c) newParams.append("color", c);
     });
 
-    // sizes (multi)
+    // ===== SIZES (multi) =====
+    // Lưu ý: size của bạn là "XS" "S" "M"... => KHÔNG lowercase
     document.querySelectorAll('.size-input:checked[data-size]').forEach(el => {
       const s = (el.getAttribute("data-size") ?? "").toString().trim();
-      if (s) u.searchParams.append("size", s);
-
+      if (s) newParams.append("size", s);
     });
 
-    // styles (multi)
-    document.querySelectorAll('.size-input:checked[data-style]').forEach(el => {
-      const st = norm(el.getAttribute("data-style"));
-      if (st) u.searchParams.append("style", st);
+    // ===== CATEGORIES (multi) =====
+    document.querySelectorAll('.size-input:checked[data-category]').forEach(el => {
+      const cat = (el.getAttribute("data-category") ?? "").toString().trim().toLowerCase();
+      if (cat) newParams.append("category", cat);
     });
 
-    // apply => quay về page 1
-    u.searchParams.set("page", "1");
-    window.location.href = u.toString();
+    // ===== TAGS (style của bạn là tag) =====
+    document.querySelectorAll('.size-input:checked[data-tag]').forEach(el => {
+      const t = (el.getAttribute("data-tag") ?? "").toString().trim().toLowerCase();
+      if (t) newParams.append("tag", t);
+    });
+
+    // ===== SORT =====
+    const sortSelect = document.getElementById("sortBy");
+    if (sortSelect?.value && sortSelect.value !== "popular") {
+      newParams.set("sort", sortSelect.value);
+    }
+
+    // page luôn về 1 khi apply
+    newParams.set("page", "1");
+
+    // ===== Ghi đè URL (xóa sạch query cũ) =====
+    const basePath = window.location.pathname; // vd: /category.html
+    const qs = newParams.toString();
+    window.location.href = qs ? `${basePath}?${qs}` : basePath;
   });
 
 });
@@ -368,5 +389,6 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('resize', () => {
     if (window.innerWidth > 900) close();
   });
+
 
 });
