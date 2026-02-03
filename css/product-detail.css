@@ -828,4 +828,120 @@ body {
         padding: 0 18px;
         border-radius: 999px;
     }
+
+    /* reviews */
+    .review-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+}
+
+@media (max-width: 400px) {
+    .container {
+        padding: 12px;
+    }
+
+    /* breadcrumb */
+    .breadcrumb {
+        font-size: 11px;
+        gap: 4px;
+    }
+
+    /* title */
+    .pd-info h1 {
+        font-size: 20px;
+        line-height: 1.15;
+    }
+
+    /* rating */
+    .pd-rating {
+        gap: 6px;
+    }
+
+    .pd-rating .stars {
+        font-size: 14px;
+    }
+
+    .pd-rating .text {
+        font-size: 12px;
+    }
+
+    /* price */
+    .pd-price {
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+
+    .pd-price .current {
+        font-size: 22px;
+    }
+
+    .pd-price .old {
+        font-size: 16px;
+    }
+
+    .pd-price .badge {
+        font-size: 11px;
+        padding: 4px 8px;
+    }
+
+    /* main image */
+    .pd-main {
+        padding: 12px;
+        border-radius: 18px;
+    }
+
+    /* thumbs */
+    .pd-thumb {
+        flex: 0 0 72px;
+        padding: 6px;
+    }
+
+    .pd-thumb img {
+        border-radius: 8px;
+    }
+
+    /* colors */
+    .color-btn {
+        width: 30px;
+        height: 30px;
+    }
+
+    /* sizes */
+    .size-btn {
+        padding: 8px 14px;
+        font-size: 13px;
+    }
+
+    /* actions */
+    .pd-actions {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .qty {
+        height: 44px;
+    }
+
+    .add-btn {
+        height: 44px;
+        font-size: 15px;
+    }
+
+    /* related products */
+    .related-product h2 {
+        font-size: 26px;
+        margin-bottom: 20px;
+    }
+
+    .related-product .product-list {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    /* reviews */
+    .review-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
 }
