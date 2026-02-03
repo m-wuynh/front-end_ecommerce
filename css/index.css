@@ -53,16 +53,21 @@ body {
     max-width: 620px;
 }
 
-.banner-text h1 {
-    margin: 0 0 16px;
-    max-width: 620px;
+.banner-title {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 
-    font-size: clamp(48px, 6vw, 72px);
-    font-weight: 900;
-    line-height: 0.95;
-    letter-spacing: -1px;
-    text-transform: uppercase;
+  font-size: clamp(48px, 6vw, 72px);
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -1px;
+  text-transform: uppercase;
+}
 
+.banner-title span {
+  display: block;
+  white-space: nowrap; /* 🔥 KHÓA dòng */
 }
 
 .banner-text>p {
