@@ -141,7 +141,7 @@
 /* <= 1200px: giảm cột 4 -> 3, giảm khoảng trống */
 @media (max-width: 1200px) {
   .footer-links {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 28px;
     flex: 1 1 auto; /* bỏ ép 80% */
   }
