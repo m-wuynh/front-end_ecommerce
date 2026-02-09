@@ -324,7 +324,7 @@
         width: min(80vw, 320px);
         background: #fff;
 
-        padding: 80px 20px 20px;
+        padding: 80px 40px 20px;
         /* chừa chỗ phía trên cho header */
         box-shadow: 0 10px 30px rgba(0, 0, 0, .2);
 
@@ -374,7 +374,7 @@
         position: static;
         border: none;
         box-shadow: none;
-        padding: 8px 0 0;
+        padding: 8px 0 0 25px;
         min-width: unset;
     }
 
@@ -434,7 +434,7 @@
     /* drawer nhỏ hơn để không chiếm hết màn */
     .header-main nav.nav-header {
         width: min(86vw, 300px);
-        padding: 72px 16px 16px;
+        padding: 72px 10px 16px 40px;
     }
 
     .header-main nav.nav-header a,
