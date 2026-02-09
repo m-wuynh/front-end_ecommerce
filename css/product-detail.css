@@ -227,11 +227,28 @@ body {
     cursor: pointer
 }
 
-.qty span {
-    min-width: 20px;
-    text-align: center;
-    font-weight: 700
+.qty-input {
+  width: 48px;
+  text-align: center;
+  font-weight: 700;
+  border: 0;
+  background: transparent;
+  outline: none;
+  font-size: 16px;
 }
+
+/* ẩn spinner (Chrome/Edge) */
+.qty-input::-webkit-outer-spin-button,
+.qty-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* ẩn spinner (Firefox) */
+.qty-input {
+  -moz-appearance: textfield;
+}
+
 
 .add-btn {
     border: 0;
@@ -367,7 +384,7 @@ body {
     background: transparent;
     border: none;
     padding: 12px 6px;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
     color: #9ca3af;
     cursor: pointer;
@@ -841,12 +858,6 @@ body {
         font-size: 13px;
     }
 
-    /* actions */
-    .pd-actions {
-        grid-template-columns: 1fr;
-        gap: 10px;
-    }
-
     .qty {
         height: 44px;
     }
@@ -871,5 +882,8 @@ body {
     .review-grid {
         grid-template-columns: 1fr;
         gap: 14px;
+    }
+    .product-tabs .tab-link {
+        font-size: 12px;
     }
 }

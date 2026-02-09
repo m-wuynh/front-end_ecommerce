@@ -138,18 +138,18 @@ function generateProducts(count = 100, seed = 20260128) {
   };
 
   // Colors (no slug)
-const colorPool = [
-  { label: "Green",  hex: "#2E7D32" },
-  { label: "Red",    hex: "#D7263D" },
-  { label: "Yellow", hex: "#FFC107" },
-  { label: "Orange", hex: "#FF9800" },
-  { label: "Cyan",   hex: "#00BCD4" },
-  { label: "Blue",   hex: "#2D6CDF" },
-  { label: "Purple", hex: "#6A1B9A" },
-  { label: "Pink",   hex: "#E91E63" },
-  { label: "Black",  hex: "#000000" },
-  { label: "White",  hex: "#FFFFFF" },
-];
+  const colorPool = [
+    { label: "Green", hex: "#2E7D32" },
+    { label: "Red", hex: "#D7263D" },
+    { label: "Yellow", hex: "#FFC107" },
+    { label: "Orange", hex: "#FF9800" },
+    { label: "Cyan", hex: "#00BCD4" },
+    { label: "Blue", hex: "#2D6CDF" },
+    { label: "Purple", hex: "#6A1B9A" },
+    { label: "Pink", hex: "#E91E63" },
+    { label: "Black", hex: "#000000" },
+    { label: "White", hex: "#FFFFFF" },
+  ];
 
 
   const sizesTops = ["XS", "S", "M", "L", "XL"];
@@ -188,7 +188,8 @@ const colorPool = [
 
     const name =
       `${pick(rng, adj)} ${pick(rng, adj)} ${typeLabel[category]}`.replace(/\s+/g, " ");
-    const image = pick(rng, imagePool[category]);
+    const images = sampleUnique(rng, imagePool[category], 2, 4);
+
 
     // Pick 2–4 colors per product
     const colors = sampleUnique(rng, colorPool, 2, 4);
@@ -206,7 +207,8 @@ const colorPool = [
       price,
       oldPrice,
       rating,
-      image,
+      image: images[0],
+      images,
       category,
       tag: uniqueTags,
 

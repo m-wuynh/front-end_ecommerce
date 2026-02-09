@@ -36,8 +36,9 @@ document.addEventListener("DOMContentLoaded", () => {
   // Breadcrumb category
   document.getElementById("bcCategory").textContent = product.category;
 
-  // Vì data hiện chỉ có 1 ảnh, tạm tạo 3 thumbs giống UI (lặp lại ảnh)
-  const gallery = [product.image, product.image, product.image];
+  const gallery = Array.isArray(product.images) && product.images.length
+    ? product.images
+    : [product.image];
 
   // State
   let activeThumb = 0;
@@ -113,16 +114,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
           <div class="pd-actions">
             <div class="qty">
-              <button id="minus">−</button>
-              <span>${qty}</span>
-              <button id="plus">+</button>
+              <button id="minus" type="button" aria-label="Decrease quantity">−</button>
+              <input id="qtyInput" class="qty-input" type="number" min="1" step="1" value="${qty}" inputmode="numeric"/>
+              <button id="plus" type="button" aria-label="Increase quantity">+</button>
             </div>
-
             <button class="add-btn" id="addCart">Add to Cart</button>
           </div>
         </div>
       </div>
     `;
+    setupGalleryAutoSlide(
+      root,
+      gallery,
+      () => activeThumb,
+      (idx) => {
+        activeThumb = idx;
+        render(); // vì code bạn đang render lại khi đổi thumb
+      }
+    );
 
     // events: thumbs
     root.querySelectorAll(".pd-thumb").forEach(btn => {
@@ -149,13 +158,33 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // events: qty
+    const qtyInput = root.querySelector("#qtyInput");
+
     root.querySelector("#minus").addEventListener("click", () => {
       qty = Math.max(1, qty - 1);
-      render();
+      if (qtyInput) qtyInput.value = String(qty);
     });
+
     root.querySelector("#plus").addEventListener("click", () => {
       qty += 1;
-      render();
+      if (qtyInput) qtyInput.value = String(qty);
+    });
+
+    // cho phép nhập số trực tiếp
+    qtyInput?.addEventListener("input", () => {
+      // cho phép user xóa tạm thời (để gõ lại)
+      if (qtyInput.value === "") return;
+
+      const n = parseInt(qtyInput.value, 10);
+      if (Number.isFinite(n) && n >= 1) qty = n;
+    });
+
+    // khi blur thì auto clamp về >= 1
+    qtyInput?.addEventListener("blur", () => {
+      let n = parseInt(qtyInput.value, 10);
+      if (!Number.isFinite(n) || n < 1) n = 1;
+      qty = n;
+      qtyInput.value = String(qty);
     });
 
     // Add to cart (localStorage)
@@ -188,7 +217,7 @@ document.addEventListener("DOMContentLoaded", () => {
         cart.push(item);
       }
       localStorage.setItem("CART", JSON.stringify(cart));
-      
+
       alert("Added to cart!");
     });
   }
@@ -380,4 +409,45 @@ function escapeHtml(str) {
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
+}
+const __galleryTimers = new WeakMap();
+
+function setupGalleryAutoSlide(root, gallery, getActiveIndex, setActiveIndex) {
+  const mainWrap = root.querySelector(".pd-main");
+  const thumbs = Array.from(root.querySelectorAll(".pd-thumb"));
+
+  if (!mainWrap || thumbs.length <= 1) return;
+
+  // tránh tạo nhiều interval khi render lại
+  const old = __galleryTimers.get(root);
+  if (old) clearInterval(old);
+
+  const stop = () => {
+    const t = __galleryTimers.get(root);
+    if (t) clearInterval(t);
+    __galleryTimers.delete(root);
+  };
+
+  const start = () => {
+    stop();
+    const timer = setInterval(() => {
+      const next = (getActiveIndex() + 1) % gallery.length;
+      setActiveIndex(next);
+    }, 2500);
+    __galleryTimers.set(root, timer);
+  };
+
+  // pause hover ảnh lớn
+  mainWrap.addEventListener("mouseenter", stop);
+  mainWrap.addEventListener("mouseleave", start);
+
+  // click thumb -> đổi ảnh + reset timer
+  thumbs.forEach((btn, idx) => {
+    btn.addEventListener("click", () => {
+      setActiveIndex(idx);
+      start();
+    });
+  });
+
+  start();
 }
