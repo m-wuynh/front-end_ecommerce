@@ -386,10 +386,23 @@ function renderReviews(container, reviews, stats) {
       </div>
     </div>
 
-    <div class="review-grid">
-      ${count ? listHtml : emptyHtml}
+  ${count ? `
+    <div class="review-slider" data-review-slider>
+      <div class="review-track">
+        ${listHtml}
+      </div>
+
+      <div class="review-nav">
+        <button class="review-prev" type="button" aria-label="Previous review">‹</button>
+        <div class="review-dots" aria-label="Review slider dots"></div>
+        <button class="review-next" type="button" aria-label="Next review">›</button>
+      </div>
     </div>
+    ` : emptyHtml}
+
   `;
+  initReviewSlider(container, { interval: 2800 });
+
 }
 
 /* ===== Helpers nhỏ ===== */
@@ -449,5 +462,69 @@ function setupGalleryAutoSlide(root, gallery, getActiveIndex, setActiveIndex) {
     });
   });
 
+  start();
+}
+function initReviewSlider(container, { interval = 2800 } = {}) {
+  const slider = container.querySelector("[data-review-slider]");
+  if (!slider) return;
+
+  const track = slider.querySelector(".review-track");
+  const cards = Array.from(track.querySelectorAll(".review-card"));
+  const dotsWrap = slider.querySelector(".review-dots");
+  const btnPrev = slider.querySelector(".review-prev");
+  const btnNext = slider.querySelector(".review-next");
+
+  if (cards.length <= 1) return;
+
+  let idx = 0;
+  let timer = null;
+
+  // dots
+  if (dotsWrap) {
+    dotsWrap.innerHTML = cards.map((_, i) =>
+      `<button type="button" class="dot ${i === 0 ? "is-active" : ""}" data-dot="${i}" aria-label="Go to review ${i + 1}"></button>`
+    ).join("");
+
+    dotsWrap.querySelectorAll(".dot").forEach(dot => {
+      dot.addEventListener("click", () => {
+        idx = Number(dot.dataset.dot);
+        go(idx);
+        restart();
+      });
+    });
+  }
+
+  const updateDots = () => {
+    dotsWrap?.querySelectorAll(".dot").forEach((d, i) => {
+      d.classList.toggle("is-active", i === idx);
+    });
+  };
+
+  const go = (i) => {
+    idx = (i + cards.length) % cards.length;
+    track.style.transform = `translateX(-${idx * 100}%)`;
+    updateDots();
+  };
+
+  const stop = () => {
+    if (timer) clearInterval(timer);
+    timer = null;
+  };
+
+  const start = () => {
+    stop();
+    timer = setInterval(() => go(idx + 1), interval);
+  };
+
+  const restart = () => { stop(); start(); };
+
+  btnPrev?.addEventListener("click", () => { go(idx - 1); restart(); });
+  btnNext?.addEventListener("click", () => { go(idx + 1); restart(); });
+
+  slider.addEventListener("mouseenter", stop);
+  slider.addEventListener("mouseleave", start);
+
+  // init
+  track.style.transform = "translateX(0%)";
   start();
 }

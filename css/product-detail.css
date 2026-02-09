@@ -629,12 +629,61 @@ body {
 }
 
 /* ===== Review Grid (2 cột desktop) ===== */
-.review-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-    margin-top: 20px;
+/* ===== Review Slider ===== */
+.review-slider {
+  overflow: hidden;
+  width: 100%;
 }
+
+.review-track {
+  display: flex;
+  transition: transform .35s ease;
+  will-change: transform;
+}
+
+.review-slider .review-card {
+  flex: 0 0 100%;
+}
+
+/* nav: prev/dots/next */
+.review-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.review-prev,
+.review-next {
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  cursor: pointer;
+  font-size: 20px;
+  line-height: 1;
+}
+
+.review-dots {
+  display: flex;
+  gap: 8px;
+}
+
+.review-dots .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  border: none;
+  background: #d1d5db;
+  cursor: pointer;
+}
+
+.review-dots .dot.is-active {
+  background: #111827;
+}
+
 
 
 /* ========= < 1200px ========= */
