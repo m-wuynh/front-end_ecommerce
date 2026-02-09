@@ -38,6 +38,10 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function update() {
+    if (window.innerWidth <= 1024) {
+      setFixed(false);
+      return;
+    }
     const stickyH = sticky.offsetHeight;
     const footerTop = footer.getBoundingClientRect().top;
 
