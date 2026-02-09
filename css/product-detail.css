@@ -538,6 +538,11 @@ body {
     align-items: center;
     gap: 8px;
     margin-bottom: 8px;
+    font-size: 20px;
+}
+
+.review-body {
+    font-size: 19px;
 }
 
 .review-name {
@@ -715,7 +720,6 @@ body {
     flex: 0 0 100%;
   }
 }
-
 
 /* ========= < 1200px ========= */
 @media (max-width: 1024px) {

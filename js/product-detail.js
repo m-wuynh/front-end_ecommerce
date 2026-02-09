@@ -536,17 +536,24 @@ function initReviewSlider(container, { interval = 2800 } = {}) {
     const x = stepPx() * idx;
     track.style.transform = `translateX(-${x}px)`;
 
-    updateBits();
-    if (btnPrev) btnPrev.disabled = idx <= 0;
-    if (btnNext) btnNext.disabled = idx >= m;
   };
 
   const stop = () => { if (timer) clearInterval(timer); timer = null; };
   const start = () => { stop(); timer = setInterval(() => go(idx + 1 > maxIdx() ? 0 : idx + 1), interval); };
   const restart = () => { stop(); start(); };
 
-  btnPrev?.addEventListener("click", () => { go(idx - 1); restart(); });
-  btnNext?.addEventListener("click", () => { go(idx + 1); restart(); });
+btnPrev?.addEventListener("click", () => {
+  const m = maxIdx();
+  go(idx <= 0 ? m : idx - 1);   // về cuối nếu đang ở đầu
+  restart();
+}); 
+
+btnNext?.addEventListener("click", () => {
+  const m = maxIdx();
+  go(idx >= m ? 0 : idx + 1);   // về đầu nếu đang ở cuối
+  restart();
+});
+
 
   slider.addEventListener("mouseenter", stop);
   slider.addEventListener("mouseleave", start);
