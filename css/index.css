@@ -372,11 +372,6 @@ body {
     height: 32px;
 }
 
-.ratings-container {
-    display: flex;
-    overflow-x: auto;
-    gap: 10px;
-}
 
 .ratings-container track {
     display: none;
@@ -388,6 +383,65 @@ body {
     padding: 10px;
     flex: 0 0 400px;
 }
+
+/* ===== Rating slider (Home) ===== */
+/* override rule cũ */
+.ratings-container{
+  display: block;
+  overflow-x: hidden;
+}
+
+.rating-track {
+    display: flex;
+    gap: 16px;
+    transition: transform .35s ease;
+    will-change: transform;
+}
+
+/* 3 cards desktop */
+.rating-card {
+    flex: 0 0 calc((100% - 32px) / 3);
+}
+
+@media (max-width: 1024px) {
+    .rating-card {
+        flex: 0 0 calc((100% - 16px) / 2);
+    }
+}
+
+@media (max-width: 768px) {
+    .rating-track {
+        gap: 12px;
+    }
+
+    .rating-card {
+        flex: 0 0 100%;
+    }
+}
+
+/* bit pattern */
+.rating-bits {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    margin-top: 14px;
+}
+
+.rating-bits .bit {
+    width: 14px;
+    height: 6px;
+    border-radius: 2px;
+    border: 1px solid #d1d5db;
+    background: transparent;
+    padding: 0;
+}
+
+.rating-bits .bit.is-active {
+    background: #111827;
+    border-color: #111827;
+}
+
 
 
 @media (max-width: 1024px) {
