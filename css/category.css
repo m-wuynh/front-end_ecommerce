@@ -467,7 +467,9 @@ body {
     padding: 0;
     /* bạn đang padding 0 20px -> dễ lệch ở màn nhỏ */
 }
-
+.plp-grid .noResultText{
+    justify-content: center;
+}
 /* ================== <= 1024px ================== */
 @media (max-width: 1024px) {
     .page {

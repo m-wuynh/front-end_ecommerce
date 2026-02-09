@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const pageParam = parseInt(params.get("page") || "1", 10);
   let currentPage = Number.isFinite(pageParam) && pageParam > 0 ? pageParam : 1;
 
-  const PER_PAGE = 9;
+  const PER_PAGE = 12;
 
   const legacyCategory = norm(params.get("id") || "");
   if (!pickedCategories.length && legacyCategory) pickedCategories.push(legacyCategory);
@@ -78,6 +78,8 @@ document.addEventListener("DOMContentLoaded", () => {
       return okCategory || okTags; // OR (như bạn đang làm)
     });
   }
+
+  const isEmptySearch = hasQuery && list.length === 0;
 
   // ===== 2) FACET FILTER: price/color/size/style từ URL =====
   const minParam = parseFloat(params.get("min") || "");
@@ -155,8 +157,17 @@ document.addEventListener("DOMContentLoaded", () => {
     window.location.href = u.toString();
   });
 
+  const noResultText = document.getElementById("noResultText");
+
+  if (isEmptySearch && noResultText) {
+    noResultText.style.display = "flex";
+  }
+
   // ===== 4) PAGINATION RENDER =====
   const pager = document.querySelector(".plp-pagination");
+  if (isEmptySearch && pager) {
+    pager.style.display = "none";
+  }
   const prevBtn = pager?.querySelector(".prev-page");
   const nextBtn = pager?.querySelector(".next-page");
   const pagesUl = pager?.querySelector("ul");
@@ -389,6 +400,5 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('resize', () => {
     if (window.innerWidth > 768) close();
   });
-
 
 });
