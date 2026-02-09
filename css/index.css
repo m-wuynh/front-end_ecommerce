@@ -238,18 +238,17 @@ body {
 
 /* tên sản phẩm */
 .product-name {
-    margin-top: 14px;
-    font-size: 16px;
+    margin: 14px 0px 0px 0px;
+    font-size: 20px;
     font-weight: 700;
 }
 
 /* rating */
 .product-rating {
-    margin-top: 8px;
     display: flex;
     align-items: center;
     gap: 8px;
-    font-size: 14px;
+    font-size: 20px;
 }
 
 .stars {
@@ -389,13 +388,6 @@ body {
     padding: 10px;
     flex: 0 0 400px;
 }
-
-.hr {
-    height: 1px;
-    background-color: #e6e6e6;
-    margin: 20px;
-}
-
 
 
 @media (max-width: 1024px) {
@@ -581,6 +573,11 @@ body {
     .title h1 {
         margin: 0;
         line-height: 1.1;
+    }
+
+    .rating-text {
+        color: #333;
+        font-size: 15px;
     }
 
 }
