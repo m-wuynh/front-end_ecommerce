@@ -684,6 +684,37 @@ body {
   background: #111827;
 }
 
+/* ===== Review Slider: show 3 cards per view (desktop) ===== */
+.review-slider {
+  overflow: hidden;
+  width: 100%;
+}
+
+.review-track {
+  display: flex;
+  transition: transform .35s ease;
+  will-change: transform;
+  gap: 16px; /* khoảng cách giữa card */
+}
+
+/* 3 cards / view */
+.review-slider .review-card {
+  flex: 0 0 calc((100% - 32px) / 3); /* 3 cards, 2 gaps = 32px */
+}
+
+/* responsive: tablet 2 cards, mobile 1 card */
+@media (max-width: 1024px) {
+  .review-slider .review-card {
+    flex: 0 0 calc((100% - 16px) / 2);
+  }
+}
+
+@media (max-width: 768px) {
+  .review-track { gap: 12px; }
+  .review-slider .review-card {
+    flex: 0 0 100%;
+  }
+}
 
 
 /* ========= < 1200px ========= */

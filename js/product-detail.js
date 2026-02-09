@@ -476,46 +476,73 @@ function initReviewSlider(container, { interval = 2800 } = {}) {
 
   if (cards.length <= 1) return;
 
-  let idx = 0;
+  let idx = 0;        // index của review “đầu tiên” đang nằm trong view
   let timer = null;
 
-  // dots
-  if (dotsWrap) {
-    dotsWrap.innerHTML = cards.map((_, i) =>
-      `<button type="button" class="dot ${i === 0 ? "is-active" : ""}" data-dot="${i}" aria-label="Go to review ${i + 1}"></button>`
-    ).join("");
+  const perView = () => {
+    const w = window.innerWidth;
+    if (w <= 768) return 1;
+    if (w <= 1024) return 2;
+    return 3;
+  };
 
-    dotsWrap.querySelectorAll(".dot").forEach(dot => {
-      dot.addEventListener("click", () => {
-        idx = Number(dot.dataset.dot);
+  // Tính “bước trượt” theo pixel: width 1 card + gap
+  const stepPx = () => {
+    const first = cards[0];
+    const second = cards[1];
+    if (!first) return 0;
+
+    // nếu có card thứ 2, lấy khoảng cách offsetLeft để ra đúng step (bao gồm gap)
+    if (second) return second.offsetLeft - first.offsetLeft;
+
+    // fallback: width của card
+    return first.getBoundingClientRect().width;
+  };
+
+  const maxIdx = () => Math.max(0, cards.length - perView()); // idx lớn nhất để vẫn đủ view
+
+  const buildBits = () => {
+    if (!dotsWrap) return;
+    dotsWrap.innerHTML = cards
+      .map((_, i) => `<button type="button" class="dot" data-bit="${i}" aria-label="Go to review ${i + 1}"></button>`)
+      .join("");
+
+    // click 1 bit -> đưa bit đó thành “review đầu”
+    dotsWrap.querySelectorAll(".dot").forEach(b => {
+      b.addEventListener("click", () => {
+        idx = Math.min(maxIdx(), Math.max(0, Number(b.dataset.bit)));
         go(idx);
         restart();
       });
     });
-  }
+  };
 
-  const updateDots = () => {
-    dotsWrap?.querySelectorAll(".dot").forEach((d, i) => {
-      d.classList.toggle("is-active", i === idx);
+  const updateBits = () => {
+    if (!dotsWrap) return;
+    const pv = perView();
+    const start = idx;
+    const end = idx + pv - 1;
+
+    dotsWrap.querySelectorAll(".dot").forEach(bit => {
+      const i = Number(bit.dataset.bit);
+      bit.classList.toggle("is-active", i >= start && i <= end);
     });
   };
 
   const go = (i) => {
-    idx = (i + cards.length) % cards.length;
-    track.style.transform = `translateX(-${idx * 100}%)`;
-    updateDots();
+    const m = maxIdx();
+    idx = Math.min(m, Math.max(0, i));
+
+    const x = stepPx() * idx;
+    track.style.transform = `translateX(-${x}px)`;
+
+    updateBits();
+    if (btnPrev) btnPrev.disabled = idx <= 0;
+    if (btnNext) btnNext.disabled = idx >= m;
   };
 
-  const stop = () => {
-    if (timer) clearInterval(timer);
-    timer = null;
-  };
-
-  const start = () => {
-    stop();
-    timer = setInterval(() => go(idx + 1), interval);
-  };
-
+  const stop = () => { if (timer) clearInterval(timer); timer = null; };
+  const start = () => { stop(); timer = setInterval(() => go(idx + 1 > maxIdx() ? 0 : idx + 1), interval); };
   const restart = () => { stop(); start(); };
 
   btnPrev?.addEventListener("click", () => { go(idx - 1); restart(); });
@@ -524,7 +551,16 @@ function initReviewSlider(container, { interval = 2800 } = {}) {
   slider.addEventListener("mouseenter", stop);
   slider.addEventListener("mouseleave", start);
 
+  // resize: vì perView thay đổi => cần clamp idx + build lại bits + render lại
+  const onResize = () => {
+    idx = Math.min(idx, maxIdx());
+    buildBits();
+    go(idx);
+  };
+  window.addEventListener("resize", onResize);
+
   // init
-  track.style.transform = "translateX(0%)";
+  buildBits();
+  go(0);
   start();
 }
